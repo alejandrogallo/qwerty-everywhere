@@ -1,0 +1,1358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-01-30 Sat 23:25 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Qwerty Everywhere</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alejandro Gallo" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Qwerty Everywhere</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgbc74b49">1. Introduction</a>
+<ul>
+<li><a href="#org2e7f5f4">1.1. Arabic</a>
+<ul>
+<li><a href="#org6768852">1.1.1. Table</a></li>
+<li><a href="#org07954ce">1.1.2. vim</a></li>
+<li><a href="#org652e34c">1.1.3. Emacs</a></li>
+</ul>
+</li>
+<li><a href="#org39ba270">1.2. Hebrew</a>
+<ul>
+<li><a href="#org21fc450">1.2.1. Table</a></li>
+<li><a href="#org6d5bf49">1.2.2. Emacs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgacc038b">2. The code</a>
+<ul>
+<li><a href="#org5a2a2d7">2.1. Vim</a></li>
+<li><a href="#orgcf18146">2.2. Emacs</a></li>
+</ul>
+</li>
+<li><a href="#orgd957873">3. References</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgbc74b49" class="outline-2">
+<h2 id="orgbc74b49"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This projects aims to make writing Arabic, Hebrew and Russian
+easier in Emacs and Vim by defining an intuitive
+keymap for <code>QWERTY</code> users.
+</p>
+
+<p>
+This document is written in the form of a literate program,
+which produces the code in a self-contained way in the same
+document <a class='org-ref-reference' href="#LiteratePrograKnuth1984">LiteratePrograKnuth1984</a>,<a class='org-ref-reference' href="#Literate.prograRamsey1994">Literate.prograRamsey1994</a>.
+</p>
+</div>
+
+<div id="outline-container-org2e7f5f4" class="outline-3">
+<h3 id="org2e7f5f4"><span class="section-number-3">1.1</span> Arabic</h3>
+<div class="outline-text-3" id="text-1-1">
+</div>
+<div id="outline-container-org6768852" class="outline-4">
+<h4 id="org6768852"><span class="section-number-4">1.1.1</span> Table</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<table id="org091ebe9" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key</th>
+<th scope="col" class="org-right">Unicode</th>
+<th scope="col" class="org-left">Arabic</th>
+<th scope="col" class="org-left">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Z</td>
+<td class="org-right">0638</td>
+<td class="org-left">ظ</td>
+<td class="org-left">ZAH</td>
+</tr>
+
+<tr>
+<td class="org-left">v</td>
+<td class="org-right">0637</td>
+<td class="org-left">ط</td>
+<td class="org-left">TAH</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">d</td>
+<td class="org-right">062f</td>
+<td class="org-left">د</td>
+<td class="org-left">DAL</td>
+</tr>
+
+<tr>
+<td class="org-left">.d</td>
+<td class="org-right">0630</td>
+<td class="org-left">ذ</td>
+<td class="org-left">THAL</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">c</td>
+<td class="org-right">0635</td>
+<td class="org-left">ص</td>
+<td class="org-left">SAD</td>
+</tr>
+
+<tr>
+<td class="org-left">.c</td>
+<td class="org-right">0636</td>
+<td class="org-left">ض</td>
+<td class="org-left">DAD</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">q</td>
+<td class="org-right">0642</td>
+<td class="org-left">ق</td>
+<td class="org-left">QAF</td>
+</tr>
+
+<tr>
+<td class="org-left">f</td>
+<td class="org-right">0641</td>
+<td class="org-left">ف</td>
+<td class="org-left">FEH</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">g</td>
+<td class="org-right">063a</td>
+<td class="org-left">غ</td>
+<td class="org-left">GHAIN</td>
+</tr>
+
+<tr>
+<td class="org-left">e</td>
+<td class="org-right">0639</td>
+<td class="org-left">ع</td>
+<td class="org-left">AIN</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">o</td>
+<td class="org-right">0647</td>
+<td class="org-left">ه</td>
+<td class="org-left">HEH</td>
+</tr>
+
+<tr>
+<td class="org-left">O</td>
+<td class="org-right">0629</td>
+<td class="org-left">ة</td>
+<td class="org-left">TEH MARBUTA</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">h</td>
+<td class="org-right">062d</td>
+<td class="org-left">ح</td>
+<td class="org-left">HAH</td>
+</tr>
+
+<tr>
+<td class="org-left">x</td>
+<td class="org-right">062e</td>
+<td class="org-left">خ</td>
+<td class="org-left">KHAH</td>
+</tr>
+
+<tr>
+<td class="org-left">j</td>
+<td class="org-right">062c</td>
+<td class="org-left">ج</td>
+<td class="org-left">JEEM</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">S</td>
+<td class="org-right">0634</td>
+<td class="org-left">ش</td>
+<td class="org-left">SHEEN</td>
+</tr>
+
+<tr>
+<td class="org-left">s</td>
+<td class="org-right">0633</td>
+<td class="org-left">س</td>
+<td class="org-left">SEEN</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">t</td>
+<td class="org-right">062a</td>
+<td class="org-left">ت</td>
+<td class="org-left">TEH</td>
+</tr>
+
+<tr>
+<td class="org-left">T</td>
+<td class="org-right">062b</td>
+<td class="org-left">ث</td>
+<td class="org-left">THEH</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">r</td>
+<td class="org-right">0631</td>
+<td class="org-left">ر</td>
+<td class="org-left">REH</td>
+</tr>
+
+<tr>
+<td class="org-left">z</td>
+<td class="org-right">0632</td>
+<td class="org-left">ز</td>
+<td class="org-left">ZAIN</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">b</td>
+<td class="org-right">0628</td>
+<td class="org-left">ب</td>
+<td class="org-left">BEH</td>
+</tr>
+
+<tr>
+<td class="org-left">n</td>
+<td class="org-right">0646</td>
+<td class="org-left">ن</td>
+<td class="org-left">NOON</td>
+</tr>
+
+<tr>
+<td class="org-left">l</td>
+<td class="org-right">0644</td>
+<td class="org-left">ل</td>
+<td class="org-left">LAM</td>
+</tr>
+
+<tr>
+<td class="org-left">m</td>
+<td class="org-right">0645</td>
+<td class="org-left">م</td>
+<td class="org-left">MEEM</td>
+</tr>
+
+<tr>
+<td class="org-left">k</td>
+<td class="org-right">0643</td>
+<td class="org-left">ك</td>
+<td class="org-left">KAF</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">A</td>
+<td class="org-right">0649</td>
+<td class="org-left">ى</td>
+<td class="org-left">ALEF MAKSURA</td>
+</tr>
+
+<tr>
+<td class="org-left">~a</td>
+<td class="org-right">0622</td>
+<td class="org-left">آ</td>
+<td class="org-left">ALEF WITH MADDA ABOVE</td>
+</tr>
+
+<tr>
+<td class="org-left">'a</td>
+<td class="org-right">0623</td>
+<td class="org-left">أ</td>
+<td class="org-left">ALEF with HAMZA ABOVE</td>
+</tr>
+
+<tr>
+<td class="org-left">a</td>
+<td class="org-right">0627</td>
+<td class="org-left">ا</td>
+<td class="org-left">ALEF</td>
+</tr>
+
+<tr>
+<td class="org-left">'i</td>
+<td class="org-right">0625</td>
+<td class="org-left">إ</td>
+<td class="org-left">ALEF with HAMZA BELOW</td>
+</tr>
+
+<tr>
+<td class="org-left">w</td>
+<td class="org-right">0648</td>
+<td class="org-left">و</td>
+<td class="org-left">WAW</td>
+</tr>
+
+<tr>
+<td class="org-left">'u</td>
+<td class="org-right">0624</td>
+<td class="org-left">ؤ</td>
+<td class="org-left">WAW with HAMZA ABOVE</td>
+</tr>
+
+<tr>
+<td class="org-left">uu</td>
+<td class="org-right">0648</td>
+<td class="org-left">و</td>
+<td class="org-left">WAW</td>
+</tr>
+
+<tr>
+<td class="org-left">y</td>
+<td class="org-right">064a</td>
+<td class="org-left">ي</td>
+<td class="org-left">YEH</td>
+</tr>
+
+<tr>
+<td class="org-left">'y</td>
+<td class="org-right">0626</td>
+<td class="org-left">ئ</td>
+<td class="org-left">YEH with HAMZA ABOVE</td>
+</tr>
+
+<tr>
+<td class="org-left">ii</td>
+<td class="org-right">064a</td>
+<td class="org-left">ي</td>
+<td class="org-left">YEH</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">0</td>
+<td class="org-right">0660</td>
+<td class="org-left">٠</td>
+<td class="org-left">Arabic-Indic digit 0</td>
+</tr>
+
+<tr>
+<td class="org-left">1</td>
+<td class="org-right">0661</td>
+<td class="org-left">١</td>
+<td class="org-left">Arabic-Indic digit 1</td>
+</tr>
+
+<tr>
+<td class="org-left">2</td>
+<td class="org-right">0662</td>
+<td class="org-left">٢</td>
+<td class="org-left">Arabic-Indic digit 2</td>
+</tr>
+
+<tr>
+<td class="org-left">3</td>
+<td class="org-right">0663</td>
+<td class="org-left">٣</td>
+<td class="org-left">Arabic-Indic digit 3</td>
+</tr>
+
+<tr>
+<td class="org-left">4</td>
+<td class="org-right">0664</td>
+<td class="org-left">٤</td>
+<td class="org-left">Arabic-Indic digit 4</td>
+</tr>
+
+<tr>
+<td class="org-left">5</td>
+<td class="org-right">0665</td>
+<td class="org-left">٥</td>
+<td class="org-left">Arabic-Indic digit 5</td>
+</tr>
+
+<tr>
+<td class="org-left">6</td>
+<td class="org-right">0666</td>
+<td class="org-left">٦</td>
+<td class="org-left">Arabic-Indic digit 6</td>
+</tr>
+
+<tr>
+<td class="org-left">7</td>
+<td class="org-right">0667</td>
+<td class="org-left">٧</td>
+<td class="org-left">Arabic-Indic digit 7</td>
+</tr>
+
+<tr>
+<td class="org-left">8</td>
+<td class="org-right">0668</td>
+<td class="org-left">٨</td>
+<td class="org-left">Arabic-Indic digit 8</td>
+</tr>
+
+<tr>
+<td class="org-left">9</td>
+<td class="org-right">0669</td>
+<td class="org-left">٩</td>
+<td class="org-left">Arabic-Indic digit 9</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">^</td>
+<td class="org-right">0651</td>
+<td class="org-left">ّ</td>
+<td class="org-left">SHADDA</td>
+</tr>
+
+<tr>
+<td class="org-left">'</td>
+<td class="org-right">0621</td>
+<td class="org-left">ء</td>
+<td class="org-left">HAMZA</td>
+</tr>
+
+<tr>
+<td class="org-left">°</td>
+<td class="org-right">0652</td>
+<td class="org-left">ْ</td>
+<td class="org-left">SUKUN</td>
+</tr>
+
+<tr>
+<td class="org-left">a</td>
+<td class="org-right">064e</td>
+<td class="org-left">َ</td>
+<td class="org-left">FATHA</td>
+</tr>
+
+<tr>
+<td class="org-left">aN</td>
+<td class="org-right">064b</td>
+<td class="org-left">ً</td>
+<td class="org-left">FATHATAN</td>
+</tr>
+
+<tr>
+<td class="org-left">u</td>
+<td class="org-right">064f</td>
+<td class="org-left">ُ</td>
+<td class="org-left">DAMMA</td>
+</tr>
+
+<tr>
+<td class="org-left">uN</td>
+<td class="org-right">064c</td>
+<td class="org-left">ٌ</td>
+<td class="org-left">DAMMATAN</td>
+</tr>
+
+<tr>
+<td class="org-left">i</td>
+<td class="org-right">0650</td>
+<td class="org-left">ِ</td>
+<td class="org-left">KASRA</td>
+</tr>
+
+<tr>
+<td class="org-left">iN</td>
+<td class="org-right">064d</td>
+<td class="org-left">ٍ</td>
+<td class="org-left">KASRATAN</td>
+</tr>
+
+<tr>
+<td class="org-left">;</td>
+<td class="org-right">061b</td>
+<td class="org-left">؛</td>
+<td class="org-left">Arabic Semicolon</td>
+</tr>
+
+<tr>
+<td class="org-left">J</td>
+<td class="org-right">0640</td>
+<td class="org-left">ـ</td>
+<td class="org-left">TATWEEL</td>
+</tr>
+
+<tr>
+<td class="org-left">,</td>
+<td class="org-right">060c</td>
+<td class="org-left">،</td>
+<td class="org-left">Arabic Comma</td>
+</tr>
+
+<tr>
+<td class="org-left">?</td>
+<td class="org-right">061f</td>
+<td class="org-left">؟</td>
+<td class="org-left">Arabic Question Mark</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">_A</td>
+<td class="org-right">fdf2</td>
+<td class="org-left">ﷲ</td>
+<td class="org-left">Allah</td>
+</tr>
+
+<tr>
+<td class="org-left">_S</td>
+<td class="org-right">fdfa</td>
+<td class="org-left">ﷺ</td>
+<td class="org-left">SALLALLAHOU ALAYHE WASALLAM</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org07954ce" class="outline-4">
+<h4 id="org07954ce"><span class="section-number-4">1.1.2</span> vim</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #145c33;">(</span><span style="color: #5317ac;">with-temp-buffer</span>
+<span style="color: #2f4f4f;">  </span><span style="color: #5317ac;">(</span>insert<span style="color: #2f4f4f;"> </span><span style="color: #2544bb;">"let</span><span style="color: #2f4f4f;"> </span><span style="color: #2544bb;">b:keymap_name</span><span style="color: #2f4f4f;"> </span><span style="color: #2544bb;">=</span><span style="color: #2f4f4f;"> </span><span style="color: #2544bb;">\"arab-qwerty-everywhere\"\n"</span><span style="color: #5317ac;">)</span>
+<span style="color: #2f4f4f;">  </span><span style="color: #5317ac;">(</span>insert<span style="color: #2f4f4f;"> </span><span style="color: #2544bb;">"loadkeymap\n"</span><span style="color: #5317ac;">)</span>
+<span style="color: #2f4f4f;">  </span><span style="color: #5317ac;">(</span>insert<span style="color: #2f4f4f;"> </span><span style="color: #005a5f;">(</span>string-join<span style="color: #2f4f4f;"> </span><span style="color: #863927;">(</span>keymap-to-vim<span style="color: #2f4f4f;"> </span><span style="color: #0000c0;">(</span>cdr<span style="color: #2f4f4f;"> </span>tbl<span style="color: #0000c0;">)</span><span style="color: #863927;">)</span><span style="color: #2f4f4f;"> </span><span style="color: #2544bb;">"\n"</span><span style="color: #005a5f;">)</span><span style="color: #5317ac;">)</span>
+<span style="color: #2f4f4f;">  </span><span style="color: #5317ac;">(</span>write-file<span style="color: #2f4f4f;"> </span><span style="color: #2544bb;">"dist/arabic-qwerty-everywhere.vim"</span><span style="color: #5317ac;">)</span><span style="color: #145c33;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org652e34c" class="outline-4">
+<h4 id="org652e34c"><span class="section-number-4">1.1.3</span> Emacs</h4>
+<div class="outline-text-4" id="text-1-1-3">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #145c33;">(</span>keymap-to-emacs-quail<span style="color: #2f4f4f;"> </span><span style="color: #2544bb;">"arabic-qwerty-everywhere"</span><span style="color: #2f4f4f;"> </span><span style="color: #2544bb;">"arabic"</span><span style="color: #2f4f4f;"> </span><span style="color: #5317ac;">(</span>cdr<span style="color: #2f4f4f;"> </span>tbl<span style="color: #5317ac;">)</span><span style="color: #145c33;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org39ba270" class="outline-3">
+<h3 id="org39ba270"><span class="section-number-3">1.2</span> Hebrew</h3>
+<div class="outline-text-3" id="text-1-2">
+</div>
+<div id="outline-container-org21fc450" class="outline-4">
+<h4 id="org21fc450"><span class="section-number-4">1.2.1</span> Table</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<table id="org8c67c85" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key</th>
+<th scope="col" class="org-left">Unicode</th>
+<th scope="col" class="org-left">Hebrew</th>
+<th scope="col" class="org-left">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">a</td>
+<td class="org-left">5d0</td>
+<td class="org-left">א</td>
+<td class="org-left">alef</td>
+</tr>
+
+<tr>
+<td class="org-left">b</td>
+<td class="org-left">5d1</td>
+<td class="org-left">ב</td>
+<td class="org-left">bet</td>
+</tr>
+
+<tr>
+<td class="org-left">.b</td>
+<td class="org-left">fb31</td>
+<td class="org-left">בּ</td>
+<td class="org-left">bet</td>
+</tr>
+
+<tr>
+<td class="org-left">g</td>
+<td class="org-left">5d2</td>
+<td class="org-left">ג</td>
+<td class="org-left">gimel</td>
+</tr>
+
+<tr>
+<td class="org-left">d</td>
+<td class="org-left">5d3</td>
+<td class="org-left">ד</td>
+<td class="org-left">dalet</td>
+</tr>
+
+<tr>
+<td class="org-left">h</td>
+<td class="org-left">5d4</td>
+<td class="org-left">ה</td>
+<td class="org-left">he</td>
+</tr>
+
+<tr>
+<td class="org-left">w</td>
+<td class="org-left">5d5</td>
+<td class="org-left">ו</td>
+<td class="org-left">vav</td>
+</tr>
+
+<tr>
+<td class="org-left">z</td>
+<td class="org-left">5d6</td>
+<td class="org-left">ז</td>
+<td class="org-left">zayin</td>
+</tr>
+
+<tr>
+<td class="org-left">ch</td>
+<td class="org-left">5d7</td>
+<td class="org-left">ח</td>
+<td class="org-left">het</td>
+</tr>
+
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">5d8</td>
+<td class="org-left">ט</td>
+<td class="org-left">tet</td>
+</tr>
+
+<tr>
+<td class="org-left">y</td>
+<td class="org-left">5d9</td>
+<td class="org-left">י</td>
+<td class="org-left">yod</td>
+</tr>
+
+<tr>
+<td class="org-left">k</td>
+<td class="org-left">5db</td>
+<td class="org-left">כ</td>
+<td class="org-left">kaf</td>
+</tr>
+
+<tr>
+<td class="org-left">.k</td>
+<td class="org-left">fb3b</td>
+<td class="org-left">כּ</td>
+<td class="org-left">kaf</td>
+</tr>
+
+<tr>
+<td class="org-left">K</td>
+<td class="org-left">5da</td>
+<td class="org-left">ך</td>
+<td class="org-left">final kaf</td>
+</tr>
+
+<tr>
+<td class="org-left">.K</td>
+<td class="org-left">fb3a</td>
+<td class="org-left">ךּ</td>
+<td class="org-left">final kaf</td>
+</tr>
+
+<tr>
+<td class="org-left">l</td>
+<td class="org-left">5dc</td>
+<td class="org-left">ל</td>
+<td class="org-left">lamed</td>
+</tr>
+
+<tr>
+<td class="org-left">m</td>
+<td class="org-left">5de</td>
+<td class="org-left">מ</td>
+<td class="org-left">mem</td>
+</tr>
+
+<tr>
+<td class="org-left">M</td>
+<td class="org-left">5dd</td>
+<td class="org-left">ם</td>
+<td class="org-left">final mem</td>
+</tr>
+
+<tr>
+<td class="org-left">n</td>
+<td class="org-left">"5e0"</td>
+<td class="org-left">נ</td>
+<td class="org-left">nun</td>
+</tr>
+
+<tr>
+<td class="org-left">N</td>
+<td class="org-left">5df</td>
+<td class="org-left">ן</td>
+<td class="org-left">final nun</td>
+</tr>
+
+<tr>
+<td class="org-left">c</td>
+<td class="org-left">"5e1"</td>
+<td class="org-left">ס</td>
+<td class="org-left">samekh</td>
+</tr>
+
+<tr>
+<td class="org-left">e</td>
+<td class="org-left">"5e2"</td>
+<td class="org-left">ע</td>
+<td class="org-left">ayin</td>
+</tr>
+
+<tr>
+<td class="org-left">f</td>
+<td class="org-left">"5e4"</td>
+<td class="org-left">פ</td>
+<td class="org-left">pe</td>
+</tr>
+
+<tr>
+<td class="org-left">p</td>
+<td class="org-left">fb44</td>
+<td class="org-left">פּ</td>
+<td class="org-left">pe + dagesh</td>
+</tr>
+
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">"5e3"</td>
+<td class="org-left">ף</td>
+<td class="org-left">final pe</td>
+</tr>
+
+<tr>
+<td class="org-left">P</td>
+<td class="org-left">fb43</td>
+<td class="org-left">ףּ</td>
+<td class="org-left">final fe + dagesh</td>
+</tr>
+
+<tr>
+<td class="org-left">ts</td>
+<td class="org-left">"5e6"</td>
+<td class="org-left">צ</td>
+<td class="org-left">tsadi</td>
+</tr>
+
+<tr>
+<td class="org-left">TS</td>
+<td class="org-left">"5e5"</td>
+<td class="org-left">ץ</td>
+<td class="org-left">final tsadi</td>
+</tr>
+
+<tr>
+<td class="org-left">q</td>
+<td class="org-left">"5e7"</td>
+<td class="org-left">ק</td>
+<td class="org-left">qof</td>
+</tr>
+
+<tr>
+<td class="org-left">r</td>
+<td class="org-left">"5e8"</td>
+<td class="org-left">ר</td>
+<td class="org-left">resh</td>
+</tr>
+
+<tr>
+<td class="org-left">s</td>
+<td class="org-left">"5e9"</td>
+<td class="org-left">ש</td>
+<td class="org-left">shin</td>
+</tr>
+
+<tr>
+<td class="org-left">^s</td>
+<td class="org-left">fb2a</td>
+<td class="org-left">שׁ</td>
+<td class="org-left">shin</td>
+</tr>
+
+<tr>
+<td class="org-left">.s</td>
+<td class="org-left">fb2b</td>
+<td class="org-left">שׂ</td>
+<td class="org-left">shin</td>
+</tr>
+
+<tr>
+<td class="org-left">t</td>
+<td class="org-left">5ea</td>
+<td class="org-left">ת</td>
+<td class="org-left">tav</td>
+</tr>
+
+<tr>
+<td class="org-left">.t</td>
+<td class="org-left">fb4a</td>
+<td class="org-left">תּ</td>
+<td class="org-left">tav</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">_:</td>
+<td class="org-left">5b0</td>
+<td class="org-left">ְ</td>
+<td class="org-left">sheva</td>
+</tr>
+
+<tr>
+<td class="org-left">_E</td>
+<td class="org-left">5b1</td>
+<td class="org-left">ֱ</td>
+<td class="org-left">hataf segol</td>
+</tr>
+
+<tr>
+<td class="org-left">_A</td>
+<td class="org-left">5b2</td>
+<td class="org-left">ֲ</td>
+<td class="org-left">hataf patah</td>
+</tr>
+
+<tr>
+<td class="org-left">_O</td>
+<td class="org-left">5b3</td>
+<td class="org-left">ֳ</td>
+<td class="org-left">hataf qamats</td>
+</tr>
+
+<tr>
+<td class="org-left">i</td>
+<td class="org-left">5b4</td>
+<td class="org-left">ִ</td>
+<td class="org-left">hiriq</td>
+</tr>
+
+<tr>
+<td class="org-left">_Y</td>
+<td class="org-left">5b5</td>
+<td class="org-left">ֵ</td>
+<td class="org-left">tsere</td>
+</tr>
+
+<tr>
+<td class="org-left">E</td>
+<td class="org-left">5b6</td>
+<td class="org-left">ֶ</td>
+<td class="org-left">segol</td>
+</tr>
+
+<tr>
+<td class="org-left">AA</td>
+<td class="org-left">5b7</td>
+<td class="org-left">ַ</td>
+<td class="org-left">patah</td>
+</tr>
+
+<tr>
+<td class="org-left">AO</td>
+<td class="org-left">5b8</td>
+<td class="org-left">ָ</td>
+<td class="org-left">qamats</td>
+</tr>
+
+<tr>
+<td class="org-left">o</td>
+<td class="org-left">5b9</td>
+<td class="org-left">ֹ</td>
+<td class="org-left">holam</td>
+</tr>
+
+<tr>
+<td class="org-left">u</td>
+<td class="org-left">5bb</td>
+<td class="org-left">ֻ</td>
+<td class="org-left">qubuts</td>
+</tr>
+
+<tr>
+<td class="org-left">D</td>
+<td class="org-left">5bc</td>
+<td class="org-left">ּ</td>
+<td class="org-left">dagesh</td>
+</tr>
+
+<tr>
+<td class="org-left">]T</td>
+<td class="org-left">5bd</td>
+<td class="org-left">ֽ</td>
+<td class="org-left">meteg</td>
+</tr>
+
+<tr>
+<td class="org-left">]Q</td>
+<td class="org-left">5be</td>
+<td class="org-left">־</td>
+<td class="org-left">maqaf</td>
+</tr>
+
+<tr>
+<td class="org-left">]R</td>
+<td class="org-left">5bf</td>
+<td class="org-left">ֿ</td>
+<td class="org-left">rafe</td>
+</tr>
+
+<tr>
+<td class="org-left">]p</td>
+<td class="org-left">5c0</td>
+<td class="org-left">׀</td>
+<td class="org-left">paseq</td>
+</tr>
+
+<tr>
+<td class="org-left">SR</td>
+<td class="org-left">5c1</td>
+<td class="org-left">ׁ</td>
+<td class="org-left">shin-dot</td>
+</tr>
+
+<tr>
+<td class="org-left">SL</td>
+<td class="org-left">5c2</td>
+<td class="org-left">ׂ</td>
+<td class="org-left">sin-dot</td>
+</tr>
+
+<tr>
+<td class="org-left">]P</td>
+<td class="org-left">5c3</td>
+<td class="org-left">׃</td>
+<td class="org-left">sof-pasuq</td>
+</tr>
+
+<tr>
+<td class="org-left">VV</td>
+<td class="org-left">5f0</td>
+<td class="org-left">װ</td>
+<td class="org-left">double vav</td>
+</tr>
+
+<tr>
+<td class="org-left">VY</td>
+<td class="org-left">5f1</td>
+<td class="org-left">ױ</td>
+<td class="org-left">vav-yod</td>
+</tr>
+
+<tr>
+<td class="org-left">YY</td>
+<td class="org-left">5f2</td>
+<td class="org-left">ײ</td>
+<td class="org-left">double yod</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org6d5bf49" class="outline-4">
+<h4 id="org6d5bf49"><span class="section-number-4">1.2.2</span> Emacs</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #145c33;">(</span>keymap-to-emacs-quail<span style="color: #2f4f4f;"> </span><span style="color: #2544bb;">"hebrew-qwerty-everywhere"</span><span style="color: #2f4f4f;"> </span><span style="color: #2544bb;">"hebrew"</span><span style="color: #2f4f4f;"> </span><span style="color: #5317ac;">(</span>cdr<span style="color: #2f4f4f;"> </span>tbl<span style="color: #5317ac;">)</span><span style="color: #145c33;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgacc038b" class="outline-2">
+<h2 id="orgacc038b"><span class="section-number-2">2</span> The code</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+We are going to write the table to keymaps converters in emacs lisp,
+which is a dialect of lisp that runs the emacs editor.
+</p>
+</div>
+<div id="outline-container-org5a2a2d7" class="outline-3">
+<h3 id="org5a2a2d7"><span class="section-number-3">2.1</span> Vim</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+First of all we write a function to convert a like such as
+</p>
+<blockquote>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Z</td>
+<td class="org-right">0638</td>
+<td class="org-left">ظ</td>
+<td class="org-left">ZAH</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>
+into the vim format for keymaps
+</p>
+<blockquote>
+<p>
+Z  &lt;char-0x0638&gt;
+</p>
+</blockquote>
+<p>
+This means, we only need the key and the hexadecimal unicode.
+The function for this is `keymap-line-to-vim`
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #145c33;">(</span><span style="color: #5317ac;">defun</span><span style="color: #2f4f4f;"> </span><span style="color: #721045;">keymap-line-to-vim</span><span style="color: #2f4f4f;"> </span><span style="color: #5317ac;">(</span>line<span style="color: #5317ac;">)</span>
+<span style="color: #2f4f4f;">  </span><span style="color: #2a486a;">"Example</span><span style="color: #2f4f4f;"> </span><span style="color: #2a486a;">of</span><span style="color: #2f4f4f;"> </span><span style="color: #2a486a;">a</span><span style="color: #2f4f4f;"> </span><span style="color: #2a486a;">line:</span>
+<span style="color: #2f4f4f;">    </span><span style="color: #2a486a;">|</span><span style="color: #2f4f4f;"> </span><span style="color: #2a486a;">Z</span><span style="color: #2f4f4f;"> </span><span style="color: #2a486a;">|</span><span style="color: #2f4f4f;"> </span><span style="color: #2a486a;">0638</span><span style="color: #2f4f4f;"> </span><span style="color: #2a486a;">|</span><span style="color: #2f4f4f;"> </span><span style="color: #2a486a;">&#1592;</span><span style="color: #2f4f4f;"> </span><span style="color: #2a486a;">|</span><span style="color: #2f4f4f;"> </span><span style="color: #2a486a;">ZAH</span><span style="color: #2f4f4f;"> </span><span style="color: #2a486a;">|</span><span style="color: #2f4f4f;"> </span><span style="color: #2a486a;">&#8658;</span><span style="color: #2f4f4f;"> </span><span style="color: #2a486a;">Z</span><span style="color: #2f4f4f;">  </span><span style="color: #2a486a;">&lt;char-0x0638&gt;</span><span style="color: #2f4f4f;"> </span><span style="color: #2a486a;">\"</span><span style="color: #2f4f4f;"> </span><span style="color: #2a486a;">&#1592;</span><span style="color: #2f4f4f;"> </span><span style="color: #2a486a;">-</span><span style="color: #2f4f4f;"> </span><span style="color: #2a486a;">ZAH</span>
+<span style="color: #2f4f4f;">  </span><span style="color: #2a486a;">"</span>
+<span style="color: #2f4f4f;">  </span><span style="color: #5317ac;">(</span><span style="color: #5317ac;">let</span><span style="color: #2f4f4f;"> </span><span style="color: #005a5f;">(</span><span style="color: #863927;">(</span>key<span style="color: #2f4f4f;"> </span><span style="color: #0000c0;">(</span>first<span style="color: #2f4f4f;"> </span>line<span style="color: #0000c0;">)</span><span style="color: #863927;">)</span>
+<span style="color: #2f4f4f;">        </span><span style="color: #863927;">(</span>code<span style="color: #2f4f4f;"> </span><span style="color: #0000c0;">(</span>second<span style="color: #2f4f4f;"> </span>line<span style="color: #0000c0;">)</span><span style="color: #863927;">)</span>
+<span style="color: #2f4f4f;">        </span><span style="color: #863927;">(</span>symbol<span style="color: #2f4f4f;"> </span><span style="color: #0000c0;">(</span>third<span style="color: #2f4f4f;"> </span>line<span style="color: #0000c0;">)</span><span style="color: #863927;">)</span>
+<span style="color: #2f4f4f;">        </span><span style="color: #863927;">(</span>name<span style="color: #2f4f4f;"> </span><span style="color: #0000c0;">(</span>fourth<span style="color: #2f4f4f;"> </span>line<span style="color: #0000c0;">)</span><span style="color: #863927;">)</span><span style="color: #005a5f;">)</span>
+<span style="color: #2f4f4f;">    </span><span style="color: #005a5f;">(</span>format<span style="color: #2f4f4f;"> </span><span style="color: #2544bb;">"%s</span><span style="color: #2f4f4f;"> </span><span style="color: #2544bb;">&lt;char-0x%s&gt;</span><span style="color: #2f4f4f;"> </span><span style="color: #2544bb;">\"</span><span style="color: #2f4f4f;"> </span><span style="color: #2544bb;">%s</span><span style="color: #2f4f4f;"> </span><span style="color: #2544bb;">-</span><span style="color: #2f4f4f;"> </span><span style="color: #2544bb;">%s"</span>
+<span style="color: #2f4f4f;">            </span>key<span style="color: #2f4f4f;"> </span>code<span style="color: #2f4f4f;"> </span>symbol<span style="color: #2f4f4f;"> </span>name<span style="color: #005a5f;">)</span><span style="color: #5317ac;">)</span><span style="color: #145c33;">)</span>
+</pre>
+</div>
+
+<p>
+For the whole table, we can just apply the function above
+to every line, which we do in emacs lisp with `mapcar`:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #145c33;">(</span><span style="color: #5317ac;">defun</span><span style="color: #2f4f4f;"> </span><span style="color: #721045;">keymap-to-vim</span><span style="color: #2f4f4f;"> </span><span style="color: #5317ac;">(</span>table<span style="color: #5317ac;">)</span>
+<span style="color: #2f4f4f;">  </span><span style="color: #5317ac;">(</span>mapcar<span style="color: #2f4f4f;"> </span>#'keymap-line-to-vim<span style="color: #2f4f4f;"> </span>table<span style="color: #5317ac;">)</span><span style="color: #145c33;">)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgcf18146" class="outline-3">
+<h3 id="orgcf18146"><span class="section-number-3">2.2</span> Emacs</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #145c33;">(</span><span style="color: #5317ac;">defun</span><span style="color: #2f4f4f;"> </span><span style="color: #721045;">keymap-line-to-emacs-quail</span><span style="color: #2f4f4f;"> </span><span style="color: #5317ac;">(</span>line<span style="color: #5317ac;">)</span>
+<span style="color: #2f4f4f;">  </span>`<span style="color: #5317ac;">(</span>,<span style="color: #005a5f;">(</span>format<span style="color: #2f4f4f;"> </span><span style="color: #2544bb;">"%s"</span><span style="color: #2f4f4f;"> </span><span style="color: #863927;">(</span>first<span style="color: #2f4f4f;"> </span>line<span style="color: #863927;">)</span><span style="color: #005a5f;">)</span>
+<span style="color: #2f4f4f;">    </span>,<span style="color: #005a5f;">(</span>string-to-number<span style="color: #2f4f4f;"> </span><span style="color: #863927;">(</span>format<span style="color: #2f4f4f;"> </span><span style="color: #2544bb;">"%s"</span><span style="color: #2f4f4f;"> </span><span style="color: #0000c0;">(</span>second<span style="color: #2f4f4f;"> </span>line<span style="color: #0000c0;">)</span><span style="color: #863927;">)</span><span style="color: #2f4f4f;"> </span>16<span style="color: #005a5f;">)</span><span style="color: #5317ac;">)</span><span style="color: #145c33;">)</span>
+
+<span style="color: #145c33;">(</span><span style="color: #5317ac;">defun</span><span style="color: #2f4f4f;"> </span><span style="color: #721045;">keymap-to-emacs-quail</span><span style="color: #2f4f4f;"> </span><span style="color: #5317ac;">(</span>name<span style="color: #2f4f4f;"> </span>language<span style="color: #2f4f4f;"> </span>table<span style="color: #5317ac;">)</span>
+<span style="color: #2f4f4f;">  </span>`<span style="color: #5317ac;">(</span><span style="color: #5317ac;">progn</span>
+<span style="color: #2f4f4f;">    </span><span style="color: #005a5f;">(</span><span style="color: #5317ac;">require</span><span style="color: #2f4f4f;"> </span>'<span style="color: #0000c0;">quail</span><span style="color: #005a5f;">)</span>
+<span style="color: #2f4f4f;">    </span><span style="color: #005a5f;">(</span>quail-define-package<span style="color: #2f4f4f;"> </span>,name<span style="color: #2f4f4f;"> </span>,language<span style="color: #2f4f4f;"> </span>,name<span style="color: #005a5f;">)</span>
+<span style="color: #2f4f4f;">    </span><span style="color: #005a5f;">(</span><span style="color: #5317ac;">quail-define-rules</span>
+<span style="color: #2f4f4f;">      </span>,@<span style="color: #863927;">(</span>mapcar<span style="color: #2f4f4f;"> </span>#'keymap-line-to-emacs-quail<span style="color: #2f4f4f;"> </span>table<span style="color: #863927;">)</span><span style="color: #005a5f;">)</span><span style="color: #5317ac;">)</span><span style="color: #145c33;">)</span>
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd957873" class="outline-2">
+<h2 id="orgd957873"><span class="section-number-2">3</span> References</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+
+<h1 class='org-ref-bib-h1'>Bibliography</h1>
+<ul class='org-ref-bib'><li><a id="LiteratePrograKnuth1984">[LiteratePrograKnuth1984]</a> <a name="LiteratePrograKnuth1984"></a>Knuth, Literate Programming, <i>The Computer Journal</i>, <b>27</b>, 97-111 (1984). <a href="http://dx.doi.org/10.1093/comjnl/27.2.97">link</a>. <a href="http://dx.doi.org/10.1093/comjnl/27.2.97">doi</a>.</li>
+<li><a id="Literate.prograRamsey1994">[Literate.prograRamsey1994]</a> <a name="Literate.prograRamsey1994"></a>Ramsey, Literate programming simplified, <i>IEEE Software</i>, <b>11</b>, 97-105 (1994). <a href="http://dx.doi.org/10.1109/52.311070">link</a>. <a href="http://dx.doi.org/10.1109/52.311070">doi</a>.</li>
+</ul>
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Alejandro Gallo</p>
+<p class="date">Created: 2021-01-30 Sat 23:25</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
