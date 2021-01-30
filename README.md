@@ -1,22 +1,24 @@
 
 # Table of Contents
 
-1.  [Introduction](#org96c555c)
-    1.  [Arabic](#orgef35f86)
-        1.  [Table](#orgffa293c)
-        2.  [vim](#org9879ad9)
-        3.  [Emacs](#org5a8f1a5)
-    2.  [Hebrew](#orgd7ee95e)
-        1.  [Table](#org0975e68)
-        2.  [Emacs](#org3b533f8)
-2.  [The code](#orgc88ff6a)
-    1.  [Vim](#org865f358)
-    2.  [Emacs](#orga24572d)
-3.  [References](#org1f61455)
+1.  [Introduction](#org346fe2e)
+2.  [The code](#orga7d45c6)
+    1.  [Vim](#orgcd0e209)
+    2.  [Emacs](#orgfea08db)
+3.  [Languages](#orgc1ee567)
+    1.  [Arabic](#orgc9055f2)
+        1.  [Table](#org9ddfd9c)
+        2.  [Emacs](#org33ff341)
+        3.  [vim](#org9f84b05)
+    2.  [Hebrew](#orgda4bad0)
+        1.  [Table](#org5062973)
+        2.  [Emacs](#org74e5c39)
+        3.  [vim](#org1865aa5)
+4.  [References](#org492706d)
 
 
 
-<a id="org96c555c"></a>
+<a id="org346fe2e"></a>
 
 # Introduction
 
@@ -29,16 +31,103 @@ which produces the code in a self-contained way in the same
 document <sup id="39f041f6b1d2d698620dbd1d6c83c888"><a href="#LiteratePrograKnuth1984" title="Knuth, Literate Programming, {The Computer Journal}, v(), 97--111 (1984).">LiteratePrograKnuth1984</a></sup><sup>,</sup><sup id="a2fb013cbe5b6ecb92dd8d45083d9105"><a href="#Literate.prograRamsey1994" title="Ramsey, Literate programming simplified, {IEEE Software}, v(), 97--105 (1994).">Literate.prograRamsey1994</a></sup>.
 
 
-<a id="orgef35f86"></a>
+<a id="orga7d45c6"></a>
+
+# The code
+
+We are going to write the table to keymaps converters in emacs lisp,
+which is a dialect of lisp that runs the emacs editor.
+
+
+<a id="orgcd0e209"></a>
+
+## Vim
+
+First of all we write a function to convert a like such as
+
+> <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+> 
+> 
+> <colgroup>
+> <col  class="org-left" />
+> 
+> <col  class="org-right" />
+> 
+> <col  class="org-left" />
+> 
+> <col  class="org-left" />
+> </colgroup>
+> <tbody>
+> <tr>
+> <td class="org-left">Z</td>
+> <td class="org-right">0638</td>
+> <td class="org-left">ظ</td>
+> <td class="org-left">ZAH</td>
+> </tr>
+> </tbody>
+> </table>
+
+into the vim format for keymaps
+
+> Z  <char-0x0638>
+
+This means, we only need the key and the hexadecimal unicode.
+The function for this is \`keymap-line-to-vim\`
+
+    (defun keymap-line-to-vim (line)
+      "Example of a line:
+        | Z | 0638 | ظ | ZAH | ⇒ Z  <char-0x0638> \" ظ - ZAH
+      "
+      (let ((key (first line))
+            (code (second line))
+            (symbol (third line))
+            (name (fourth line)))
+        (format "%s <char-0x%s> \" %s - %s"
+                key code symbol name)))
+
+For the whole table, we will assume that we are in a temporary
+buffer and we can insert text into it, then we can write
+directly the buffer to a file or retrieve the string.
+This greatly simplifies the code in emacs:
+
+    (defun keymap-to-vim (name table)
+      (insert (format "let b:keymap_name = \"%s\"\n"
+                      name))
+      (insert "loadkeymap\n")
+      (insert (string-join (mapcar #'keymap-line-to-vim table) "\n")))
+
+
+<a id="orgfea08db"></a>
+
+## Emacs
+
+    (defun keymap-line-to-emacs-quail (line)
+      `(,(format "%s" (first line))
+        ,(string-to-number (format "%s" (second line)) 16)))
+    
+    (defun keymap-to-emacs-quail (name language table)
+      `(progn
+        (require 'quail)
+        (quail-define-package ,name ,language ,name)
+        (quail-define-rules
+          ,@(mapcar #'keymap-line-to-emacs-quail table))))
+
+
+<a id="orgc1ee567"></a>
+
+# Languages
+
+
+<a id="orgc9055f2"></a>
 
 ## Arabic
 
 
-<a id="orgffa293c"></a>
+<a id="org9ddfd9c"></a>
 
 ### Table
 
-<table id="org3f38233" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="orgc4430ae" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
 <colgroup>
@@ -572,34 +661,32 @@ document <sup id="39f041f6b1d2d698620dbd1d6c83c888"><a href="#LiteratePrograKnut
 </table>
 
 
-<a id="org9879ad9"></a>
-
-### vim
-
-    (with-temp-buffer
-      (insert "let b:keymap_name = \"arab-qwerty-everywhere\"\n")
-      (insert "loadkeymap\n")
-      (insert (string-join (keymap-to-vim (cdr tbl)) "\n"))
-      (write-file "dist/arabic-qwerty-everywhere.vim"))
-
-
-<a id="org5a8f1a5"></a>
+<a id="org33ff341"></a>
 
 ### Emacs
 
     (keymap-to-emacs-quail "arabic-qwerty-everywhere" "arabic" (cdr tbl))
 
 
-<a id="orgd7ee95e"></a>
+<a id="org9f84b05"></a>
+
+### vim
+
+    (with-temp-buffer
+      (keymap-to-vim "arabic-qwerty-everywhere" (cdr tbl))
+      (write-file "dist/arabic-qwerty-everywhere.vim"))
+
+
+<a id="orgda4bad0"></a>
 
 ## Hebrew
 
 
-<a id="org0975e68"></a>
+<a id="org5062973"></a>
 
 ### Table
 
-<table id="orge5cf1f9" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="org96ecf86" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
 <colgroup>
@@ -1080,91 +1167,23 @@ document <sup id="39f041f6b1d2d698620dbd1d6c83c888"><a href="#LiteratePrograKnut
 </table>
 
 
-<a id="org3b533f8"></a>
+<a id="org74e5c39"></a>
 
 ### Emacs
 
     (keymap-to-emacs-quail "hebrew-qwerty-everywhere" "hebrew" (cdr tbl))
 
 
-<a id="orgc88ff6a"></a>
+<a id="org1865aa5"></a>
 
-# The code
+### vim
 
-We are going to write the table to keymaps converters in emacs lisp,
-which is a dialect of lisp that runs the emacs editor.
-
-
-<a id="org865f358"></a>
-
-## Vim
-
-First of all we write a function to convert a like such as
-
-> <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-> 
-> 
-> <colgroup>
-> <col  class="org-left" />
-> 
-> <col  class="org-right" />
-> 
-> <col  class="org-left" />
-> 
-> <col  class="org-left" />
-> </colgroup>
-> <tbody>
-> <tr>
-> <td class="org-left">Z</td>
-> <td class="org-right">0638</td>
-> <td class="org-left">ظ</td>
-> <td class="org-left">ZAH</td>
-> </tr>
-> </tbody>
-> </table>
-
-into the vim format for keymaps
-
-> Z  <char-0x0638>
-
-This means, we only need the key and the hexadecimal unicode.
-The function for this is \`keymap-line-to-vim\`
-
-    (defun keymap-line-to-vim (line)
-      "Example of a line:
-        | Z | 0638 | ظ | ZAH | ⇒ Z  <char-0x0638> \" ظ - ZAH
-      "
-      (let ((key (first line))
-            (code (second line))
-            (symbol (third line))
-            (name (fourth line)))
-        (format "%s <char-0x%s> \" %s - %s"
-                key code symbol name)))
-
-For the whole table, we can just apply the function above
-to every line, which we do in emacs lisp with \`mapcar\`:
-
-    (defun keymap-to-vim (table)
-      (mapcar #'keymap-line-to-vim table))
+    (with-temp-buffer
+      (keymap-to-vim "hebrew-qwerty-everywhere" (cdr tbl))
+      (write-file "dist/hebrew-qwerty-everywhere.vim"))
 
 
-<a id="orga24572d"></a>
-
-## Emacs
-
-    (defun keymap-line-to-emacs-quail (line)
-      `(,(format "%s" (first line))
-        ,(string-to-number (format "%s" (second line)) 16)))
-    
-    (defun keymap-to-emacs-quail (name language table)
-      `(progn
-        (require 'quail)
-        (quail-define-package ,name ,language ,name)
-        (quail-define-rules
-          ,@(mapcar #'keymap-line-to-emacs-quail table))))
-
-
-<a id="org1f61455"></a>
+<a id="org492706d"></a>
 
 # References
 
