@@ -1,0 +1,396 @@
+#+title: Qwerty Everywhere
+#+author: Alejandro Gallo
+
+* Introduction
+This projects aims to make writing Arabic, Hebrew and Russian
+easier in programs      Emacs and Vim by defining an intuitive
+keymap for ~QWERTY~ users.
+
+This document is written in the form of a literate program,
+which produces the code in a self-contained way in the same
+document cite:LiteratePrograKnuth1984,Literate.prograRamsey1994.
+
+
+** Arabic
+*** Table
+#+name: arabic-table
+| Key | Unicode | Arabic | Name                        |
+|-----+---------+--------+-----------------------------|
+| Z   |  0638 | ظ      | ZAH                         |
+| v   |  0637 | ط      | TAH                         |
+|-----+---------+--------+-----------------------------|
+| d   |  062f | د      | DAL                         |
+| .d  |  0630 | ذ      | THAL                        |
+|-----+---------+--------+-----------------------------|
+| c   |  0635 | ص      | SAD                         |
+| .c  |  0636 | ض      | DAD                         |
+|-----+---------+--------+-----------------------------|
+| q   |  0642 | ق      | QAF                         |
+| f   |  0641 | ف      | FEH                         |
+|-----+---------+--------+-----------------------------|
+| g   |  063a | غ      | GHAIN                       |
+| e   |  0639 | ع      | AIN                         |
+|-----+---------+--------+-----------------------------|
+| o   |  0647 | ه      | HEH                         |
+| O   |  0629 | ة      | TEH MARBUTA                 |
+|-----+---------+--------+-----------------------------|
+| h   |  062d | ح      | HAH                         |
+| x   |  062e | خ      | KHAH                        |
+| j   |  062c | ج      | JEEM                        |
+|-----+---------+--------+-----------------------------|
+| S   |  0634 | ش      | SHEEN                       |
+| s   |  0633 | س      | SEEN                        |
+|-----+---------+--------+-----------------------------|
+| t   |  062a | ت      | TEH                         |
+| T   |  062b | ث      | THEH                        |
+|-----+---------+--------+-----------------------------|
+| r   |  0631 | ر      | REH                         |
+| z   |  0632 | ز      | ZAIN                        |
+|-----+---------+--------+-----------------------------|
+| b   |  0628 | ب      | BEH                         |
+| n   |  0646 | ن      | NOON                        |
+| l   |  0644 | ل      | LAM                         |
+| m   |  0645 | م      | MEEM                        |
+| k   |  0643 | ك      | KAF                         |
+|-----+---------+--------+-----------------------------|
+| A   |  0649 | ى      | ALEF MAKSURA                |
+| ~a  |  0622 | آ      | ALEF WITH MADDA ABOVE       |
+| 'a  |  0623 | أ      | ALEF with HAMZA ABOVE       |
+| a   |  0627 | ا      | ALEF                        |
+| 'i  |  0625 | إ      | ALEF with HAMZA BELOW       |
+| w   |  0648 | و      | WAW                         |
+| 'u  |  0624 | ؤ      | WAW with HAMZA ABOVE        |
+| uu  |  0648 | و      | WAW                         |
+| y   |  064a | ي      | YEH                         |
+| 'y  |  0626 | ئ      | YEH with HAMZA ABOVE        |
+| ii  |  064a | ي      | YEH                         |
+|-----+---------+--------+-----------------------------|
+| 0   |  0660 | ٠      | Arabic-Indic digit 0        |
+| 1   |  0661 | ١      | Arabic-Indic digit 1        |
+| 2   |  0662 | ٢      | Arabic-Indic digit 2        |
+| 3   |  0663 | ٣      | Arabic-Indic digit 3        |
+| 4   |  0664 | ٤      | Arabic-Indic digit 4        |
+| 5   |  0665 | ٥      | Arabic-Indic digit 5        |
+| 6   |  0666 | ٦      | Arabic-Indic digit 6        |
+| 7   |  0667 | ٧      | Arabic-Indic digit 7        |
+| 8   |  0668 | ٨      | Arabic-Indic digit 8        |
+| 9   |  0669 | ٩      | Arabic-Indic digit 9        |
+|-----+---------+--------+-----------------------------|
+| ^   |  0651 | ّ       | SHADDA                      |
+| '   |  0621 | ء      | HAMZA                       |
+| °   |  0652 | ْ       | SUKUN                       |
+| a  |  064e | َ       | FATHA                       |
+| aN |  064b | ً       | FATHATAN                    |
+| u   |  064f | ُ       | DAMMA                       |
+| uN  |  064c | ٌ       | DAMMATAN                    |
+| i   |  0650 | ِ       | KASRA                       |
+| iN  |  064d | ٍ       | KASRATAN                    |
+| ;   |  061b | ؛       | Arabic Semicolon            |
+| J   |  0640 | ـ      | TATWEEL                     |
+| ,   |  060c | ،      | Arabic Comma                |
+| ?   |  061f | ؟      | Arabic Question Mark        |
+|-----+---------+--------+-----------------------------|
+| _A  |  fdf2 | ﷲ      | Allah                      |
+| _S  |  fdfa | ﷺ      | SALLALLAHOU ALAYHE WASALLAM |
+
+*** vim
+#+begin_src emacs-lisp :exports none :results none
+(defun keymap-line-to-vim (line)
+  "Example of a line:
+    | Z | 0638 | ظ | ZAH | ⇒ Z  <char-0x0638> \" ظ - ZAH
+  "
+  (let ((key (first line))
+        (code (second line))
+        (symbol (third line))
+        (name (fourth line)))
+    (format "%s <char-0x%s> \" %s - %s"
+            key code symbol name)))
+
+(defun keymap-to-vim (table)
+  (mapcar #'keymap-line-to-vim table))
+#+end_src
+
+
+#+headers: :results value raw :wrap src vim :
+#+headers: :results_switches ":tangle test.vim"
+#+begin_src emacs-lisp :var tbl=arabic-table
+(with-temp-buffer
+  (insert "let b:keymap_name = \"arab\"\n")
+  (insert "loadkeymap\n")
+  (insert (string-join (keymap-to-vim (cdr tbl)) "\n"))
+  (write-file "test.vim"))
+#+end_src
+
+*** Emacs
+
+#+begin_src emacs-lisp
+(defun keymap-line-to-emacs-quail (line)
+  `(,(format "%s" (first line))
+    ,(string-to-number (format "%s" (second line)) 16)))
+
+(defun keymap-to-emacs-quail (name language table)
+  `(progn
+    (require 'quail)
+    (quail-define-package ,name ,language ,name)
+    (quail-define-rules
+      ,@(mapcar #'keymap-line-to-emacs-quail table))))
+
+#+end_src
+
+#+RESULTS:
+: keymap-to-emacs-quail
+
+
+#+headers: :results_switches ":tangle arabic.el"
+#+begin_src emacs-lisp :var tbl=arabic-table :results code
+(keymap-to-emacs-quail "arabic-qwerty-everywhere" "arabic" (cdr tbl))
+#+end_src
+
+#+RESULTS:
+#+begin_src emacs-lisp :tangle arabic.el
+(progn
+  (require 'quail)
+  (quail-define-package "arabic-qwerty-everywhere" "arabic" "arabic-qwerty-everywhere")
+  (quail-define-rules
+   ("Z" 1592)
+   ("v" 1591)
+   ("d" 1583)
+   (".d" 1584)
+   ("c" 1589)
+   (".c" 1590)
+   ("q" 1602)
+   ("f" 1601)
+   ("g" 1594)
+   ("e" 1593)
+   ("o" 1607)
+   ("O" 1577)
+   ("h" 1581)
+   ("x" 1582)
+   ("j" 1580)
+   ("S" 1588)
+   ("s" 1587)
+   ("t" 1578)
+   ("T" 1579)
+   ("r" 1585)
+   ("z" 1586)
+   ("b" 1576)
+   ("n" 1606)
+   ("l" 1604)
+   ("m" 1605)
+   ("k" 1603)
+   ("A" 1609)
+   ("~a" 1570)
+   ("'a" 1571)
+   ("a" 1575)
+   ("'i" 1573)
+   ("w" 1608)
+   ("'u" 1572)
+   ("uu" 1608)
+   ("y" 1610)
+   ("'y" 1574)
+   ("ii" 1610)
+   ("0" 1632)
+   ("1" 1633)
+   ("2" 1634)
+   ("3" 1635)
+   ("4" 1636)
+   ("5" 1637)
+   ("6" 1638)
+   ("7" 1639)
+   ("8" 1640)
+   ("9" 1641)
+   ("^" 1617)
+   ("'" 1569)
+   ("°" 1618)
+   ("a" 1614)
+   ("aN" 1611)
+   ("u" 1615)
+   ("uN" 1612)
+   ("i" 1616)
+   ("iN" 1613)
+   (";" 1563)
+   ("J" 1600)
+   ("," 1548)
+   ("?" 1567)
+   ("_A" 65010)
+   ("_S" 65018)))
+#+end_src
+
+#+RESULTS:
+
+** Hebrew
+*** Table
+#+name: hebrew-table
+| Key | Unicode | Hebrew | Name              |
+|-----+---------+--------+-------------------|
+| a   | 5d0     | א      | alef              |
+| b   | 5d1     | ב      | bet               |
+| .b  | fb31    | בּ      | bet               |
+| g   | 5d2     | ג      | gimel             |
+| d   | 5d3     | ד      | dalet             |
+| h   | 5d4     | ה      | he                |
+| w   | 5d5     | ו      | vav               |
+| z   | 5d6     | ז      | zayin             |
+| ch  | 5d7     | ח      | het               |
+| T   | 5d8     | ט      | tet               |
+| y   | 5d9     | י      | yod               |
+| k   | 5db     | כ      | kaf               |
+| .k  | fb3b    | כּ      | kaf               |
+| K   | 5da     | ך      | final kaf         |
+| .K  | fb3a    | ךּ      | final kaf         |
+| l   | 5dc     | ל      | lamed             |
+| m   | 5de     | מ      | mem               |
+| M   | 5dd     | ם      | final mem         |
+| n   | "5e0"   | נ      | nun               |
+| N   | 5df     | ן      | final nun         |
+| c   | "5e1"   | ס      | samekh            |
+| e   | "5e2"   | ע      | ayin              |
+| f   | "5e4"   | פ      | pe                |
+| p   | fb44    | פּ      | pe + dagesh       |
+| F   | "5e3"   | ף      | final pe          |
+| P   | fb43    | ףּ      | final fe + dagesh |
+| ts  | "5e6"   | צ      | tsadi             |
+| TS  | "5e5"   | ץ      | final tsadi       |
+| q   | "5e7"   | ק      | qof               |
+| r   | "5e8"   | ר      | resh              |
+| s   | "5e9"   | ש      | shin              |
+| ^s  | fb2a    | שׁ      | shin              |
+| .s  | fb2b    | שׂ      | shin              |
+| t   | 5ea     | ת      | tav               |
+| .t  | fb4a    | תּ      | tav               |
+|-----+---------+--------+-------------------|
+| _:  | 5b0     | ְ       | sheva             |
+| _E  | 5b1     | ֱ       | hataf segol       |
+| _A  | 5b2     | ֲ       | hataf patah       |
+| _O  | 5b3     | ֳ       | hataf qamats      |
+| i   | 5b4     | ִ       | hiriq             |
+| _Y  | 5b5     | ֵ       | tsere             |
+| E   | 5b6     | ֶ       | segol             |
+| AA  | 5b7     | ַ       | patah             |
+| AO  | 5b8     | ָ       | qamats            |
+| o   | 5b9     | ֹ       | holam             |
+| u   | 5bb     | ֻ       | qubuts            |
+| D   | 5bc     | ּ       | dagesh            |
+| ]T  | 5bd     | ֽ       | meteg             |
+| ]Q  | 5be     | ־      | maqaf             |
+| ]R  | 5bf     | ֿ       | rafe              |
+| ]p  | 5c0     | ׀      | paseq             |
+| SR  | 5c1     | ׁ       | shin-dot          |
+| SL  | 5c2     | ׂ       | sin-dot           |
+| ]P  | 5c3     | ׃      | sof-pasuq         |
+| VV  | 5f0     | װ      | double vav        |
+| VY  | 5f1     | ױ      | vav-yod           |
+| YY  | 5f2     | ײ      | double yod        |
+
+*** Emacs
+#+headers: :results_switches ":tangle hebrew.el"
+#+begin_src emacs-lisp :var tbl=hebrew-table :results code
+(keymap-to-emacs-quail "hebrew-qwerty-everywhere" "hebrew" (cdr tbl))
+#+end_src
+
+#+RESULTS:
+#+begin_src emacs-lisp :tangle hebrew.el
+(progn
+  (require 'quail)
+  (quail-define-package "hebrew-qwerty-everywhere" "hebrew" "hebrew-qwerty-everywhere")
+  (quail-define-rules
+   ("a" 1488)
+   ("b" 1489)
+   (".b" 64305)
+   ("g" 1490)
+   ("d" 1491)
+   ("h" 1492)
+   ("w" 1493)
+   ("z" 1494)
+   ("ch" 1495)
+   ("T" 1496)
+   ("y" 1497)
+   ("k" 1499)
+   (".k" 64315)
+   ("K" 1498)
+   (".K" 64314)
+   ("l" 1500)
+   ("m" 1502)
+   ("M" 1501)
+   ("n" 1504)
+   ("N" 1503)
+   ("c" 1505)
+   ("e" 1506)
+   ("f" 1508)
+   ("p" 64324)
+   ("F" 1507)
+   ("P" 64323)
+   ("ts" 1510)
+   ("TS" 1509)
+   ("q" 1511)
+   ("r" 1512)
+   ("s" 1513)
+   ("^s" 64298)
+   (".s" 64299)
+   ("t" 1514)
+   (".t" 64330)
+   ("_:" 1456)
+   ("_E" 1457)
+   ("_A" 1458)
+   ("_O" 1459)
+   ("i" 1460)
+   ("_Y" 1461)
+   ("E" 1462)
+   ("AA" 1463)
+   ("AO" 1464)
+   ("O" 1465)
+   ("U" 1467)
+   ("D" 1468)
+   ("]T" 1469)
+   ("]Q" 1470)
+   ("]R" 1471)
+   ("]p" 1472)
+   ("SR" 1473)
+   ("SL" 1474)
+   ("]P" 1475)
+   ("VV" 1520)
+   ("VY" 1521)
+   ("YY" 1522)))
+#+end_src
+
+#+RESULTS:
+ 
+* References
+bibliographystyle:unsrt
+bibliography:README.bib
+* Bibtex entries                                                   :noexport:
+
+#+BEGIN_SRC bibtex :tangle README.bib
+@article{LiteratePrograKnuth1984,
+  author = {Knuth, D. E.},
+  doi = {10.1093/comjnl/27.2.97},
+  issn = {0010-4620},
+  issue = {2},
+  journal = {The Computer Journal},
+  language = {en},
+  month = {2},
+  pages = {97--111},
+  publisher = {Oxford University Press (OUP)},
+  title = {Literate Programming},
+  type = {article},
+  url = {http://dx.doi.org/10.1093/comjnl/27.2.97},
+  volume = {27},
+  year = {1984},
+}
+
+@article{Literate.prograRamsey1994,
+  author = {Ramsey, N.},
+  doi = {10.1109/52.311070},
+  issue = {5},
+  journal = {IEEE Software},
+  month = {9},
+  pages = {97--105},
+  publisher = {Institute of Electrical and Electronics Engineers (IEEE)},
+  title = {Literate programming simplified},
+  type = {article},
+  url = {http://dx.doi.org/10.1109/52.311070},
+  volume = {11},
+  year = {1994},
+}
+
+#+END_SRC
