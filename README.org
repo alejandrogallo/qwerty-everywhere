@@ -34,7 +34,7 @@ add the followint into you ~~/.emacs.d/init.el~ file
 and now you can set this keymap by ~M-x set-input-method~
 and choosing the ~arabic-qwerty-everywhere~.
 
-*** Vim 
+*** Vim
 Copy the file you want from the dist folder to ~~/.vim/keymaps/~
 and activate the keymap by doing
 #+begin_src vim :eval no
@@ -143,7 +143,7 @@ You can go back to your default by doing
 | _A  |    fdf2 | ﷲ      | Allah                       |
 | _S  |    fdfa | ﷺ      | SALLALLAHOU ALAYHE WASALLAM |
 
-*** Emacs
+*** Emacs                                                          :noexport:
 
 #+headers: :results_switches ":tangle dist/arabic-qwerty-everywhere.el"
 #+begin_src emacs-lisp :var tbl=arabic-table :results code
@@ -225,7 +225,7 @@ You can go back to your default by doing
 
 #+RESULTS:
 
-*** vim
+*** vim                                                            :noexport:
 #+headers: :results silent
 #+begin_src emacs-lisp :var tbl=arabic-table
 (with-temp-buffer
@@ -317,7 +317,7 @@ You can go back to your default by doing
 | VY  | 5f1     | ױ      | vav-yod           |
 | YY  | 5f2     | ײ      | double yod        |
 
-*** Emacs
+*** Emacs                                                          :noexport:
 #+headers: :results_switches ":tangle dist/hebrew-qwerty-everywhere.el"
 #+begin_src emacs-lisp :var tbl=hebrew-table :results code
 (keymap-to-emacs-quail "hebrew-qwerty-everywhere" "hebrew" (cdr tbl))
@@ -395,7 +395,7 @@ You can go back to your default by doing
 
 #+RESULTS:
  
-*** vim
+*** vim                                                            :noexport:
 #+headers: :results silent
 #+begin_src emacs-lisp :var tbl=hebrew-table
 (with-temp-buffer

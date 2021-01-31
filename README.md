@@ -1,28 +1,24 @@
 
 # Table of Contents
 
-1.  [Introduction](#org899c67b)
-    1.  [Installation](#org91a1249)
-        1.  [Emacs](#orgab5739b)
-        2.  [Vim](#org386efeb)
-2.  [Languages](#orgb9edcf3)
-    1.  [Arabic](#orgeef378f)
-        1.  [Table](#orgbc8404e)
-        2.  [Emacs](#orgdb74880)
-        3.  [vim](#orgaaa5879)
-    2.  [Hebrew](#orgdd2ec9a)
-        1.  [Table](#orgbe56856)
-        2.  [Emacs](#orgca18260)
-        3.  [vim](#org35a430a)
-    3.  [Russian](#org18bde44)
-3.  [The code](#org0f7e58e)
-    1.  [Vim](#org4780f45)
-    2.  [Emacs](#org2e07adb)
-4.  [References](#orgde0bd7a)
+1.  [Introduction](#org436f114)
+    1.  [Installation](#org3bd4cbb)
+        1.  [Emacs](#orgc145eab)
+        2.  [Vim](#org2db5321)
+2.  [Languages](#orge491089)
+    1.  [Arabic](#org21af00b)
+        1.  [Table](#orgcb0c77c)
+    2.  [Hebrew](#org776204b)
+        1.  [Table](#org3d22288)
+    3.  [Russian](#orgfa8f916)
+3.  [The code](#org820df87)
+    1.  [Vim](#orgbd4a029)
+    2.  [Emacs](#org474f447)
+4.  [References](#org28fb165)
 
 
 
-<a id="org899c67b"></a>
+<a id="org436f114"></a>
 
 # Introduction
 
@@ -39,7 +35,7 @@ which produces the code in a self-contained way in the same
 document <sup id="39f041f6b1d2d698620dbd1d6c83c888"><a href="#LiteratePrograKnuth1984" title="Knuth, Literate Programming, {The Computer Journal}, v(), 97--111 (1984).">LiteratePrograKnuth1984</a></sup><sup>,</sup><sup id="a2fb013cbe5b6ecb92dd8d45083d9105"><a href="#Literate.prograRamsey1994" title="Ramsey, Literate programming simplified, {IEEE Software}, v(), 97--105 (1994).">Literate.prograRamsey1994</a></sup>.
 
 
-<a id="org91a1249"></a>
+<a id="org3bd4cbb"></a>
 
 ## Installation
 
@@ -51,7 +47,7 @@ Otherwise you can follow the following instructions to understand
 the process in each editor.
 
 
-<a id="orgab5739b"></a>
+<a id="orgc145eab"></a>
 
 ### Emacs
 
@@ -66,7 +62,7 @@ and now you can set this keymap by `M-x set-input-method`
 and choosing the `arabic-qwerty-everywhere`.
 
 
-<a id="org386efeb"></a>
+<a id="org2db5321"></a>
 
 ### Vim
 
@@ -83,21 +79,21 @@ You can go back to your default by doing
     :set norightleft
 
 
-<a id="orgb9edcf3"></a>
+<a id="orge491089"></a>
 
 # Languages
 
 
-<a id="orgeef378f"></a>
+<a id="org21af00b"></a>
 
 ## Arabic
 
 
-<a id="orgbc8404e"></a>
+<a id="orgcb0c77c"></a>
 
 ### Table
 
-<table id="org72d4c0b" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="orga65bc82" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
 <colgroup>
@@ -678,32 +674,16 @@ You can go back to your default by doing
 </table>
 
 
-<a id="orgdb74880"></a>
-
-### Emacs
-
-    (keymap-to-emacs-quail "arabic-qwerty-everywhere" "arabic" (cdr tbl))
-
-
-<a id="orgaaa5879"></a>
-
-### vim
-
-    (with-temp-buffer
-      (keymap-to-vim "arabic-qwerty-everywhere" (cdr tbl))
-      (write-file "dist/arabic-qwerty-everywhere.vim"))
-
-
-<a id="orgdd2ec9a"></a>
+<a id="org776204b"></a>
 
 ## Hebrew
 
 
-<a id="orgbe56856"></a>
+<a id="org3d22288"></a>
 
 ### Table
 
-<table id="org72ff8b3" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="org3fc1a92" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
 <colgroup>
@@ -1239,28 +1219,12 @@ You can go back to your default by doing
 </table>
 
 
-<a id="orgca18260"></a>
-
-### Emacs
-
-    (keymap-to-emacs-quail "hebrew-qwerty-everywhere" "hebrew" (cdr tbl))
-
-
-<a id="org35a430a"></a>
-
-### vim
-
-    (with-temp-buffer
-      (keymap-to-vim "hebrew-qwerty-everywhere" (cdr tbl))
-      (write-file "dist/hebrew-qwerty-everywhere.vim"))
-
-
-<a id="org18bde44"></a>
+<a id="orgfa8f916"></a>
 
 ## TODO Russian
 
 
-<a id="org0f7e58e"></a>
+<a id="org820df87"></a>
 
 # The code
 
@@ -1268,7 +1232,7 @@ We are going to write the table to keymaps converters in emacs lisp,
 which is a dialect of lisp that runs the emacs editor.
 
 
-<a id="org4780f45"></a>
+<a id="orgbd4a029"></a>
 
 ## Vim
 
@@ -1326,7 +1290,7 @@ This greatly simplifies the code in emacs:
       (insert (string-join (mapcar #'keymap-line-to-vim table) "\n")))
 
 
-<a id="org2e07adb"></a>
+<a id="org474f447"></a>
 
 ## Emacs
 
@@ -1342,7 +1306,7 @@ This greatly simplifies the code in emacs:
           ,@(mapcar #'keymap-line-to-emacs-quail table))))
 
 
-<a id="orgde0bd7a"></a>
+<a id="org28fb165"></a>
 
 # References
 
