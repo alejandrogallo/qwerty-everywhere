@@ -1,7 +1,6 @@
 #+title: Qwerty Everywhere
 #+author: Alejandro Gallo
 #+attr_headers: :mkdirp t
-
 * Introduction
 This projects aims to make writing Arabic, Hebrew and Russian
 easier in Emacs and Vim by defining an intuitive keymap for ~QWERTY~
@@ -84,6 +83,7 @@ You can go back to your default by doing
 |-----+---------+--------+-----------------------------|
 | c   |    0635 | ص      | SAD                         |
 | .c  |    0636 | ض      | DAD                         |
+| D   |    0636 | ض      | DAD                         |
 |-----+---------+--------+-----------------------------|
 | Z   |    0638 | ظ      | ZAH                         |
 | .T  |    0638 | ظ      | ZAH                         |
@@ -142,96 +142,6 @@ You can go back to your default by doing
 |-----+---------+--------+-----------------------------|
 | _A  |    fdf2 | ﷲ      | Allah                       |
 | _S  |    fdfa | ﷺ      | SALLALLAHOU ALAYHE WASALLAM |
-
-*** Emacs                                                          :noexport:
-
-#+headers: :results_switches ":tangle dist/arabic-qwerty-everywhere.el"
-#+begin_src emacs-lisp :var tbl=arabic-table :results code
-(keymap-to-emacs-quail "arabic-qwerty-everywhere" "arabic" (cdr tbl))
-#+end_src
-
-#+RESULTS:
-#+begin_src emacs-lisp :tangle dist/arabic-qwerty-everywhere.el
-(progn
-  (require 'quail)
-  (quail-define-package "arabic-qwerty-everywhere" "arabic" "arabic-qwerty-everywhere")
-  (quail-define-rules
-   ("a" 1575)
-   ("A" 1609)
-   ("~a" 1570)
-   ("'a" 1571)
-   ("'i" 1573)
-   ("-a" 1649)
-   ("b" 1576)
-   ("p" 1662)
-   ("t" 1578)
-   (".t" 1579)
-   ("j" 1580)
-   ("H" 1581)
-   ("x" 1582)
-   ("%h" 1670)
-   ("^h" 1669)
-   ("d" 1583)
-   (".d" 1584)
-   ("z" 1586)
-   ("r" 1585)
-   (".s" 1588)
-   ("s" 1587)
-   ("c" 1589)
-   (".c" 1590)
-   ("Z" 1592)
-   (".T" 1592)
-   ("T" 1591)
-   ("g" 1594)
-   ("e" 1593)
-   ("q" 1602)
-   ("f" 1601)
-   ("k" 1603)
-   ("l" 1604)
-   ("m" 1605)
-   ("n" 1606)
-   ("h" 1607)
-   (":h" 1577)
-   ("w" 1608)
-   ("'w" 1572)
-   ("y" 1610)
-   ("'y" 1574)
-   ("0" 1632)
-   ("1" 1633)
-   ("2" 1634)
-   ("3" 1635)
-   ("4" 1636)
-   ("5" 1637)
-   ("6" 1638)
-   ("7" 1639)
-   ("8" 1640)
-   ("9" 1641)
-   ("^" 1617)
-   ("'" 1569)
-   ("oo" 1618)
-   ("a" 1614)
-   ("aN" 1611)
-   ("u" 1615)
-   ("uN" 1612)
-   ("i" 1616)
-   ("iN" 1613)
-   (";" 1563)
-   ("J" 1600)
-   ("," 1548)
-   ("?" 1567)
-   ("_A" 65010)
-   ("_S" 65018)))
-#+end_src
-
-#+RESULTS:
-
-*** vim                                                            :noexport:
-#+headers: :results silent
-#+begin_src emacs-lisp :var tbl=arabic-table
-(with-temp-buffer
-  (keymap-to-vim "arabic-qwerty-everywhere" (cdr tbl))
-  (write-file "dist/arabic-qwerty-everywhere.vim"))
-#+end_src
 
 ** Hebrew
 *** Table
@@ -317,6 +227,172 @@ You can go back to your default by doing
 | VY  | 5f1     | ױ      | vav-yod           |
 | YY  | 5f2     | ײ      | double yod        |
 
+** TODO Russian
+* The code
+We are going to write the table to keymaps converters in emacs lisp,
+which is a dialect of lisp that runs the emacs editor.
+** Vim
+First of all we write a function to convert a like such as
+#+begin_quote
+| Z | 0638 | ظ | ZAH |
+#+end_quote
+into the vim format for keymaps
+#+begin_quote
+Z  <char-0x0638>
+#+end_quote
+This means, we only need the key and the hexadecimal unicode.
+The function for this is `keymap-line-to-vim`
+
+#+name: keymap-line-to-vim
+#+begin_src emacs-lisp :exports code
+(defun keymap-line-to-vim (line)
+  "Example of a line:
+    | Z | 0638 | ظ | ZAH | ⇒ Z  <char-0x0638> \" ظ - ZAH
+  "
+  (let ((key (first line))
+        (code (second line))
+        (symbol (third line))
+        (name (fourth line)))
+    (format "%s <char-0x%s> \" %s - %s"
+            key code symbol name)))
+#+end_src
+
+#+RESULTS: keymap-line-to-vim
+: keymap-line-to-vim
+
+For the whole table, we will assume that we are in a temporary
+buffer and we can insert text into it, then we can write
+directly the buffer to a file or retrieve the string.
+This greatly simplifies the code in emacs:
+
+#+name: keymap-to-vim
+#+begin_src emacs-lisp :exports code
+(defun keymap-to-vim (name table)
+  (insert (format "let b:keymap_name = \"%s\"\n"
+                  name))
+  (insert "loadkeymap\n")
+  (insert (string-join (mapcar #'keymap-line-to-vim table) "\n")))
+#+end_src
+
+#+RESULTS: keymap-to-vim
+: keymap-to-vim
+
+** Emacs
+
+Since lisp is a homoiconic language we can actually create directly
+lisp code that will be loaded into emacs.  For this we first create
+key-value pairs for each letters in the ~keymap-line-to-emacs-quail~
+function and we wrap everything in a ~progn~ block to define a ~quail~
+package.
+
+#+begin_src emacs-lisp :exports code :results none
+(defun keymap-line-to-emacs-quail (line)
+  `(,(format "%s" (first line))
+    ,(string-to-number (format "%s" (second line)) 16)))
+
+(defun keymap-to-emacs-quail (name language table)
+  `(progn
+    (require 'quail)
+    (quail-define-package ,name ,language ,name)
+    (quail-define-rules
+      ,@(mapcar #'keymap-line-to-emacs-quail table))))
+
+#+end_src
+** Arabic
+*** Emacs                                                          :noexport:
+
+#+headers: :results_switches ":tangle dist/arabic-qwerty-everywhere.el"
+#+begin_src emacs-lisp :var tbl=arabic-table :results code
+(keymap-to-emacs-quail "arabic-qwerty-everywhere" "arabic" (cdr tbl))
+#+end_src
+
+#+RESULTS:
+#+begin_src emacs-lisp :tangle dist/arabic-qwerty-everywhere.el
+(progn
+  (require 'quail)
+  (quail-define-package "arabic-qwerty-everywhere" "arabic" "arabic-qwerty-everywhere")
+  (quail-define-rules
+   ("a" 1575)
+   ("A" 1609)
+   ("~a" 1570)
+   ("'a" 1571)
+   ("'i" 1573)
+   ("-a" 1649)
+   ("b" 1576)
+   ("p" 1662)
+   ("t" 1578)
+   (".t" 1579)
+   ("j" 1580)
+   ("H" 1581)
+   ("x" 1582)
+   ("%h" 1670)
+   ("^h" 1669)
+   ("d" 1583)
+   (".d" 1584)
+   ("z" 1586)
+   ("r" 1585)
+   (".s" 1588)
+   ("s" 1587)
+   ("c" 1589)
+   (".c" 1590)
+   ("D" 1590)
+   ("Z" 1592)
+   (".T" 1592)
+   ("T" 1591)
+   ("g" 1594)
+   ("e" 1593)
+   ("q" 1602)
+   ("f" 1601)
+   ("k" 1603)
+   ("l" 1604)
+   ("m" 1605)
+   ("n" 1606)
+   ("h" 1607)
+   (":h" 1577)
+   ("w" 1608)
+   ("'w" 1572)
+   ("y" 1610)
+   ("'y" 1574)
+   ("0" 1632)
+   ("1" 1633)
+   ("2" 1634)
+   ("3" 1635)
+   ("4" 1636)
+   ("5" 1637)
+   ("6" 1638)
+   ("7" 1639)
+   ("8" 1640)
+   ("9" 1641)
+   ("^" 1617)
+   ("'" 1569)
+   ("oo" 1618)
+   (".a" 1614)
+   ("aN" 1611)
+   ("u" 1615)
+   (".u" 1615)
+   ("uN" 1612)
+   ("i" 1616)
+   (".i" 1616)
+   ("iN" 1613)
+   (";" 1563)
+   ("_" 1600)
+   ("," 1548)
+   ("?" 1567)
+   ("_A" 65010)
+   ("_S" 65018)))
+#+end_src
+
+#+RESULTS:
+
+*** vim                                                            :noexport:
+#+headers: :results silent
+#+begin_src emacs-lisp :var tbl=arabic-table
+(with-temp-buffer
+  (keymap-to-vim "arabic-qwerty-everywhere" (cdr tbl))
+  (write-file "dist/arabic-qwerty-everywhere.vim"))
+#+end_src
+
+** Hebrew
 *** Emacs                                                          :noexport:
 #+headers: :results_switches ":tangle dist/hebrew-qwerty-everywhere.el"
 #+begin_src emacs-lisp :var tbl=hebrew-table :results code
@@ -401,71 +477,6 @@ You can go back to your default by doing
 (with-temp-buffer
   (keymap-to-vim "hebrew-qwerty-everywhere" (cdr tbl))
   (write-file "dist/hebrew-qwerty-everywhere.vim"))
-#+end_src
-** TODO Russian
-* The code
-We are going to write the table to keymaps converters in emacs lisp,
-which is a dialect of lisp that runs the emacs editor.
-** Vim
-First of all we write a function to convert a like such as
-#+begin_quote
-| Z | 0638 | ظ | ZAH |
-#+end_quote
-into the vim format for keymaps
-#+begin_quote
-Z  <char-0x0638>
-#+end_quote
-This means, we only need the key and the hexadecimal unicode.
-The function for this is `keymap-line-to-vim`
-
-#+name: keymap-line-to-vim
-#+begin_src emacs-lisp :exports code
-(defun keymap-line-to-vim (line)
-  "Example of a line:
-    | Z | 0638 | ظ | ZAH | ⇒ Z  <char-0x0638> \" ظ - ZAH
-  "
-  (let ((key (first line))
-        (code (second line))
-        (symbol (third line))
-        (name (fourth line)))
-    (format "%s <char-0x%s> \" %s - %s"
-            key code symbol name)))
-#+end_src
-
-#+RESULTS: keymap-line-to-vim
-: keymap-line-to-vim
-
-For the whole table, we will assume that we are in a temporary
-buffer and we can insert text into it, then we can write
-directly the buffer to a file or retrieve the string.
-This greatly simplifies the code in emacs:
-
-#+name: keymap-to-vim
-#+begin_src emacs-lisp :exports code
-(defun keymap-to-vim (name table)
-  (insert (format "let b:keymap_name = \"%s\"\n"
-                  name))
-  (insert "loadkeymap\n")
-  (insert (string-join (mapcar #'keymap-line-to-vim table) "\n")))
-#+end_src
-
-#+RESULTS: keymap-to-vim
-: keymap-to-vim
-
-** Emacs
-
-#+begin_src emacs-lisp :exports code :results none
-(defun keymap-line-to-emacs-quail (line)
-  `(,(format "%s" (first line))
-    ,(string-to-number (format "%s" (second line)) 16)))
-
-(defun keymap-to-emacs-quail (name language table)
-  `(progn
-    (require 'quail)
-    (quail-define-package ,name ,language ,name)
-    (quail-define-rules
-      ,@(mapcar #'keymap-line-to-emacs-quail table))))
-
 #+end_src
 * References
 bibliographystyle:unsrt

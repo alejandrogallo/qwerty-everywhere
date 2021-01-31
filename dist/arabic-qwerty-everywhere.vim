@@ -23,6 +23,7 @@ r <char-0x631> " ر - REH
 s <char-0x633> " س - SEEN
 c <char-0x635> " ص - SAD
 .c <char-0x636> " ض - DAD
+D <char-0x636> " ض - DAD
 Z <char-0x638> " ظ - ZAH
 .T <char-0x638> " ظ - ZAH
 T <char-0x637> " ط - TAH
@@ -53,14 +54,16 @@ y <char-0x064a> " ي - YEH
 ^ <char-0x651> " ّ - SHADDA
 ' <char-0x621> " ء - HAMZA
 oo <char-0x652> " ْ - SUKUN
-a <char-0x064e> " َ - FATHA
+.a <char-0x064e> " َ - FATHA
 aN <char-0x064b> " ً - FATHATAN
 u <char-0x064f> " ُ - DAMMA
+.u <char-0x064f> " ُ - DAMMA
 uN <char-0x064c> " ٌ - DAMMATAN
 i <char-0x650> " ِ - KASRA
+.i <char-0x650> " ِ - KASRA
 iN <char-0x064d> " ٍ - KASRATAN
 ; <char-0x061b> " ؛ - Arabic Semicolon
-J <char-0x640> " ـ - TATWEEL
+_ <char-0x640> " ـ - TATWEEL
 , <char-0x060c> " ، - Arabic Comma
 ? <char-0x061f> " ؟ - Arabic Question Mark
 _A <char-0xfdf2> " ﷲ - Allah
