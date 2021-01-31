@@ -9,7 +9,7 @@ EMACS_LANGS = $(patsubst dist/%.el,%,$(wildcard dist/*.el))
 	@mkdir -p $(@D)
 	cp $< $@
 
-install: $(patsubst %,~/.vim/keymaps/%.vim,$(VIM_LANGS)) \
+install: $(patsubst %,~/.vim/keymap/%.vim,$(VIM_LANGS)) \
          $(patsubst %,~/.emacs.d/lisp/%.el,$(EMACS_LANGS)) \
 
 .PHONY: install
