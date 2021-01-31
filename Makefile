@@ -1,7 +1,7 @@
 VIM_LANGS = $(patsubst dist/%.vim,%,$(wildcard dist/*.vim))
 EMACS_LANGS = $(patsubst dist/%.el,%,$(wildcard dist/*.el))
 
-~/.vim/keymaps/%.vim: dist/%.vim
+~/.vim/keymap/%.vim: dist/%.vim
 	@mkdir -p $(@D)
 	cp $< $@
 
