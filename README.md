@@ -1,133 +1,103 @@
 
 # Table of Contents
 
-1.  [Introduction](#org346fe2e)
-2.  [The code](#orga7d45c6)
-    1.  [Vim](#orgcd0e209)
-    2.  [Emacs](#orgfea08db)
-3.  [Languages](#orgc1ee567)
-    1.  [Arabic](#orgc9055f2)
-        1.  [Table](#org9ddfd9c)
-        2.  [Emacs](#org33ff341)
-        3.  [vim](#org9f84b05)
-    2.  [Hebrew](#orgda4bad0)
-        1.  [Table](#org5062973)
-        2.  [Emacs](#org74e5c39)
-        3.  [vim](#org1865aa5)
-4.  [References](#org492706d)
+1.  [Introduction](#org899c67b)
+    1.  [Installation](#org91a1249)
+        1.  [Emacs](#orgab5739b)
+        2.  [Vim](#org386efeb)
+2.  [Languages](#orgb9edcf3)
+    1.  [Arabic](#orgeef378f)
+        1.  [Table](#orgbc8404e)
+        2.  [Emacs](#orgdb74880)
+        3.  [vim](#orgaaa5879)
+    2.  [Hebrew](#orgdd2ec9a)
+        1.  [Table](#orgbe56856)
+        2.  [Emacs](#orgca18260)
+        3.  [vim](#org35a430a)
+    3.  [Russian](#org18bde44)
+3.  [The code](#org0f7e58e)
+    1.  [Vim](#org4780f45)
+    2.  [Emacs](#org2e07adb)
+4.  [References](#orgde0bd7a)
 
 
 
-<a id="org346fe2e"></a>
+<a id="org899c67b"></a>
 
 # Introduction
 
 This projects aims to make writing Arabic, Hebrew and Russian
-easier in Emacs and Vim by defining an intuitive
-keymap for `QWERTY` users.
+easier in Emacs and Vim by defining an intuitive keymap for `QWERTY`
+users. If you are using another editor or want to contribute
+a language, you are welcome to contribute.
+
+This is a living document to try to find the most intuitive
+and easy to learn keymap for the languages found herein.
 
 This document is written in the form of a literate program,
 which produces the code in a self-contained way in the same
 document <sup id="39f041f6b1d2d698620dbd1d6c83c888"><a href="#LiteratePrograKnuth1984" title="Knuth, Literate Programming, {The Computer Journal}, v(), 97--111 (1984).">LiteratePrograKnuth1984</a></sup><sup>,</sup><sup id="a2fb013cbe5b6ecb92dd8d45083d9105"><a href="#Literate.prograRamsey1994" title="Ramsey, Literate programming simplified, {IEEE Software}, v(), 97--105 (1994).">Literate.prograRamsey1994</a></sup>.
 
 
-<a id="orga7d45c6"></a>
+<a id="org91a1249"></a>
 
-# The code
+## Installation
 
-We are going to write the table to keymaps converters in emacs lisp,
-which is a dialect of lisp that runs the emacs editor.
+You can install all files just by doing
 
+    make install
 
-<a id="orgcd0e209"></a>
-
-## Vim
-
-First of all we write a function to convert a like such as
-
-> <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-> 
-> 
-> <colgroup>
-> <col  class="org-left" />
-> 
-> <col  class="org-right" />
-> 
-> <col  class="org-left" />
-> 
-> <col  class="org-left" />
-> </colgroup>
-> <tbody>
-> <tr>
-> <td class="org-left">Z</td>
-> <td class="org-right">0638</td>
-> <td class="org-left">ظ</td>
-> <td class="org-left">ZAH</td>
-> </tr>
-> </tbody>
-> </table>
-
-into the vim format for keymaps
-
-> Z  <char-0x0638>
-
-This means, we only need the key and the hexadecimal unicode.
-The function for this is \`keymap-line-to-vim\`
-
-    (defun keymap-line-to-vim (line)
-      "Example of a line:
-        | Z | 0638 | ظ | ZAH | ⇒ Z  <char-0x0638> \" ظ - ZAH
-      "
-      (let ((key (first line))
-            (code (second line))
-            (symbol (third line))
-            (name (fourth line)))
-        (format "%s <char-0x%s> \" %s - %s"
-                key code symbol name)))
-
-For the whole table, we will assume that we are in a temporary
-buffer and we can insert text into it, then we can write
-directly the buffer to a file or retrieve the string.
-This greatly simplifies the code in emacs:
-
-    (defun keymap-to-vim (name table)
-      (insert (format "let b:keymap_name = \"%s\"\n"
-                      name))
-      (insert "loadkeymap\n")
-      (insert (string-join (mapcar #'keymap-line-to-vim table) "\n")))
+Otherwise you can follow the following instructions to understand
+the process in each editor.
 
 
-<a id="orgfea08db"></a>
+<a id="orgab5739b"></a>
 
-## Emacs
+### Emacs
 
-    (defun keymap-line-to-emacs-quail (line)
-      `(,(format "%s" (first line))
-        ,(string-to-number (format "%s" (second line)) 16)))
-    
-    (defun keymap-to-emacs-quail (name language table)
-      `(progn
-        (require 'quail)
-        (quail-define-package ,name ,language ,name)
-        (quail-define-rules
-          ,@(mapcar #'keymap-line-to-emacs-quail table))))
+Copy the file you want from the dist folder somewhere in your computer.
+For instance, if you choose the arabic version of `qwerty-everywhere`
+and you copy it into the path `~/.emacs.d/arabic-qwerty-everywhere.el`,
+add the followint into you `~/.emacs.d/init.el` file
+
+    (load "~/.emacs.d/arabic-qwerty-everywhere.el")
+
+and now you can set this keymap by `M-x set-input-method`
+and choosing the `arabic-qwerty-everywhere`.
 
 
-<a id="orgc1ee567"></a>
+<a id="org386efeb"></a>
+
+### Vim
+
+Copy the file you want from the dist folder to `~/.vim/keymaps/`
+and activate the keymap by doing
+
+    :set keymap=arabic-qwerty-everywhere
+    :set rightleft
+
+in the case that you chose the arabic version.
+You can go back to your default by doing
+
+    :set keymap
+    :set norightleft
+
+
+<a id="orgb9edcf3"></a>
 
 # Languages
 
 
-<a id="orgc9055f2"></a>
+<a id="orgeef378f"></a>
 
 ## Arabic
 
 
-<a id="org9ddfd9c"></a>
+<a id="orgbc8404e"></a>
 
 ### Table
 
-<table id="orgc4430ae" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="org72d4c0b" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
 <colgroup>
@@ -150,224 +120,13 @@ This greatly simplifies the code in emacs:
 
 <tbody>
 <tr>
-<td class="org-left">Z</td>
-<td class="org-right">0638</td>
-<td class="org-left">ظ</td>
-<td class="org-left">ZAH</td>
+<td class="org-left">a</td>
+<td class="org-right">0627</td>
+<td class="org-left">ا</td>
+<td class="org-left">ALEF</td>
 </tr>
 
 
-<tr>
-<td class="org-left">v</td>
-<td class="org-right">0637</td>
-<td class="org-left">ط</td>
-<td class="org-left">TAH</td>
-</tr>
-</tbody>
-
-<tbody>
-<tr>
-<td class="org-left">d</td>
-<td class="org-right">062f</td>
-<td class="org-left">د</td>
-<td class="org-left">DAL</td>
-</tr>
-
-
-<tr>
-<td class="org-left">.d</td>
-<td class="org-right">0630</td>
-<td class="org-left">ذ</td>
-<td class="org-left">THAL</td>
-</tr>
-</tbody>
-
-<tbody>
-<tr>
-<td class="org-left">c</td>
-<td class="org-right">0635</td>
-<td class="org-left">ص</td>
-<td class="org-left">SAD</td>
-</tr>
-
-
-<tr>
-<td class="org-left">.c</td>
-<td class="org-right">0636</td>
-<td class="org-left">ض</td>
-<td class="org-left">DAD</td>
-</tr>
-</tbody>
-
-<tbody>
-<tr>
-<td class="org-left">q</td>
-<td class="org-right">0642</td>
-<td class="org-left">ق</td>
-<td class="org-left">QAF</td>
-</tr>
-
-
-<tr>
-<td class="org-left">f</td>
-<td class="org-right">0641</td>
-<td class="org-left">ف</td>
-<td class="org-left">FEH</td>
-</tr>
-</tbody>
-
-<tbody>
-<tr>
-<td class="org-left">g</td>
-<td class="org-right">063a</td>
-<td class="org-left">غ</td>
-<td class="org-left">GHAIN</td>
-</tr>
-
-
-<tr>
-<td class="org-left">e</td>
-<td class="org-right">0639</td>
-<td class="org-left">ع</td>
-<td class="org-left">AIN</td>
-</tr>
-</tbody>
-
-<tbody>
-<tr>
-<td class="org-left">o</td>
-<td class="org-right">0647</td>
-<td class="org-left">ه</td>
-<td class="org-left">HEH</td>
-</tr>
-
-
-<tr>
-<td class="org-left">O</td>
-<td class="org-right">0629</td>
-<td class="org-left">ة</td>
-<td class="org-left">TEH MARBUTA</td>
-</tr>
-</tbody>
-
-<tbody>
-<tr>
-<td class="org-left">h</td>
-<td class="org-right">062d</td>
-<td class="org-left">ح</td>
-<td class="org-left">HAH</td>
-</tr>
-
-
-<tr>
-<td class="org-left">x</td>
-<td class="org-right">062e</td>
-<td class="org-left">خ</td>
-<td class="org-left">KHAH</td>
-</tr>
-
-
-<tr>
-<td class="org-left">j</td>
-<td class="org-right">062c</td>
-<td class="org-left">ج</td>
-<td class="org-left">JEEM</td>
-</tr>
-</tbody>
-
-<tbody>
-<tr>
-<td class="org-left">S</td>
-<td class="org-right">0634</td>
-<td class="org-left">ش</td>
-<td class="org-left">SHEEN</td>
-</tr>
-
-
-<tr>
-<td class="org-left">s</td>
-<td class="org-right">0633</td>
-<td class="org-left">س</td>
-<td class="org-left">SEEN</td>
-</tr>
-</tbody>
-
-<tbody>
-<tr>
-<td class="org-left">t</td>
-<td class="org-right">062a</td>
-<td class="org-left">ت</td>
-<td class="org-left">TEH</td>
-</tr>
-
-
-<tr>
-<td class="org-left">T</td>
-<td class="org-right">062b</td>
-<td class="org-left">ث</td>
-<td class="org-left">THEH</td>
-</tr>
-</tbody>
-
-<tbody>
-<tr>
-<td class="org-left">r</td>
-<td class="org-right">0631</td>
-<td class="org-left">ر</td>
-<td class="org-left">REH</td>
-</tr>
-
-
-<tr>
-<td class="org-left">z</td>
-<td class="org-right">0632</td>
-<td class="org-left">ز</td>
-<td class="org-left">ZAIN</td>
-</tr>
-</tbody>
-
-<tbody>
-<tr>
-<td class="org-left">b</td>
-<td class="org-right">0628</td>
-<td class="org-left">ب</td>
-<td class="org-left">BEH</td>
-</tr>
-
-
-<tr>
-<td class="org-left">n</td>
-<td class="org-right">0646</td>
-<td class="org-left">ن</td>
-<td class="org-left">NOON</td>
-</tr>
-
-
-<tr>
-<td class="org-left">l</td>
-<td class="org-right">0644</td>
-<td class="org-left">ل</td>
-<td class="org-left">LAM</td>
-</tr>
-
-
-<tr>
-<td class="org-left">m</td>
-<td class="org-right">0645</td>
-<td class="org-left">م</td>
-<td class="org-left">MEEM</td>
-</tr>
-
-
-<tr>
-<td class="org-left">k</td>
-<td class="org-right">0643</td>
-<td class="org-left">ك</td>
-<td class="org-left">KAF</td>
-</tr>
-</tbody>
-
-<tbody>
 <tr>
 <td class="org-left">A</td>
 <td class="org-right">0649</td>
@@ -393,14 +152,6 @@ This greatly simplifies the code in emacs:
 
 
 <tr>
-<td class="org-left">a</td>
-<td class="org-right">0627</td>
-<td class="org-left">ا</td>
-<td class="org-left">ALEF</td>
-</tr>
-
-
-<tr>
 <td class="org-left">'i</td>
 <td class="org-right">0625</td>
 <td class="org-left">إ</td>
@@ -408,6 +159,267 @@ This greatly simplifies the code in emacs:
 </tr>
 
 
+<tr>
+<td class="org-left">-a</td>
+<td class="org-right">0671</td>
+<td class="org-left">ٱ</td>
+<td class="org-left">ALEF WASLA</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">b</td>
+<td class="org-right">0628</td>
+<td class="org-left">ب</td>
+<td class="org-left">BEH</td>
+</tr>
+
+
+<tr>
+<td class="org-left">p</td>
+<td class="org-right">067e</td>
+<td class="org-left">پ</td>
+<td class="org-left">PEH</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">t</td>
+<td class="org-right">062a</td>
+<td class="org-left">ت</td>
+<td class="org-left">TEH</td>
+</tr>
+
+
+<tr>
+<td class="org-left">.t</td>
+<td class="org-right">062b</td>
+<td class="org-left">ث</td>
+<td class="org-left">THEH</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">j</td>
+<td class="org-right">062c</td>
+<td class="org-left">ج</td>
+<td class="org-left">JEEM</td>
+</tr>
+
+
+<tr>
+<td class="org-left">H</td>
+<td class="org-right">062d</td>
+<td class="org-left">ح</td>
+<td class="org-left">HAH</td>
+</tr>
+
+
+<tr>
+<td class="org-left">x</td>
+<td class="org-right">062e</td>
+<td class="org-left">خ</td>
+<td class="org-left">KHAH</td>
+</tr>
+
+
+<tr>
+<td class="org-left">%h</td>
+<td class="org-right">0686</td>
+<td class="org-left">چ</td>
+<td class="org-left">TCHEH</td>
+</tr>
+
+
+<tr>
+<td class="org-left">^h</td>
+<td class="org-right">0685</td>
+<td class="org-left">څ</td>
+<td class="org-left">HAH WITH THREE DOTS ABOVE</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">d</td>
+<td class="org-right">062f</td>
+<td class="org-left">د</td>
+<td class="org-left">DAL</td>
+</tr>
+
+
+<tr>
+<td class="org-left">.d</td>
+<td class="org-right">0630</td>
+<td class="org-left">ذ</td>
+<td class="org-left">THAL</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">z</td>
+<td class="org-right">0632</td>
+<td class="org-left">ز</td>
+<td class="org-left">ZAIN</td>
+</tr>
+
+
+<tr>
+<td class="org-left">r</td>
+<td class="org-right">0631</td>
+<td class="org-left">ر</td>
+<td class="org-left">REH</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">.s</td>
+<td class="org-right">0634</td>
+<td class="org-left">ش</td>
+<td class="org-left">SHEEN</td>
+</tr>
+
+
+<tr>
+<td class="org-left">s</td>
+<td class="org-right">0633</td>
+<td class="org-left">س</td>
+<td class="org-left">SEEN</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">c</td>
+<td class="org-right">0635</td>
+<td class="org-left">ص</td>
+<td class="org-left">SAD</td>
+</tr>
+
+
+<tr>
+<td class="org-left">.c</td>
+<td class="org-right">0636</td>
+<td class="org-left">ض</td>
+<td class="org-left">DAD</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">Z</td>
+<td class="org-right">0638</td>
+<td class="org-left">ظ</td>
+<td class="org-left">ZAH</td>
+</tr>
+
+
+<tr>
+<td class="org-left">.T</td>
+<td class="org-right">0638</td>
+<td class="org-left">ظ</td>
+<td class="org-left">ZAH</td>
+</tr>
+
+
+<tr>
+<td class="org-left">T</td>
+<td class="org-right">0637</td>
+<td class="org-left">ط</td>
+<td class="org-left">TAH</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">g</td>
+<td class="org-right">063a</td>
+<td class="org-left">غ</td>
+<td class="org-left">GHAIN</td>
+</tr>
+
+
+<tr>
+<td class="org-left">e</td>
+<td class="org-right">0639</td>
+<td class="org-left">ع</td>
+<td class="org-left">AIN</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">q</td>
+<td class="org-right">0642</td>
+<td class="org-left">ق</td>
+<td class="org-left">QAF</td>
+</tr>
+
+
+<tr>
+<td class="org-left">f</td>
+<td class="org-right">0641</td>
+<td class="org-left">ف</td>
+<td class="org-left">FEH</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">k</td>
+<td class="org-right">0643</td>
+<td class="org-left">ك</td>
+<td class="org-left">KAF</td>
+</tr>
+
+
+<tr>
+<td class="org-left">l</td>
+<td class="org-right">0644</td>
+<td class="org-left">ل</td>
+<td class="org-left">LAM</td>
+</tr>
+
+
+<tr>
+<td class="org-left">m</td>
+<td class="org-right">0645</td>
+<td class="org-left">م</td>
+<td class="org-left">MEEM</td>
+</tr>
+
+
+<tr>
+<td class="org-left">n</td>
+<td class="org-right">0646</td>
+<td class="org-left">ن</td>
+<td class="org-left">NOON</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">h</td>
+<td class="org-right">0647</td>
+<td class="org-left">ه</td>
+<td class="org-left">HEH</td>
+</tr>
+
+
+<tr>
+<td class="org-left">:h</td>
+<td class="org-right">0629</td>
+<td class="org-left">ة</td>
+<td class="org-left">TEH MARBUTA</td>
+</tr>
+</tbody>
+
+<tbody>
 <tr>
 <td class="org-left">w</td>
 <td class="org-right">0648</td>
@@ -417,21 +429,14 @@ This greatly simplifies the code in emacs:
 
 
 <tr>
-<td class="org-left">'u</td>
+<td class="org-left">'w</td>
 <td class="org-right">0624</td>
 <td class="org-left">ؤ</td>
 <td class="org-left">WAW with HAMZA ABOVE</td>
 </tr>
+</tbody>
 
-
-<tr>
-<td class="org-left">uu</td>
-<td class="org-right">0648</td>
-<td class="org-left">و</td>
-<td class="org-left">WAW</td>
-</tr>
-
-
+<tbody>
 <tr>
 <td class="org-left">y</td>
 <td class="org-right">064a</td>
@@ -445,14 +450,6 @@ This greatly simplifies the code in emacs:
 <td class="org-right">0626</td>
 <td class="org-left">ئ</td>
 <td class="org-left">YEH with HAMZA ABOVE</td>
-</tr>
-
-
-<tr>
-<td class="org-left">ii</td>
-<td class="org-right">064a</td>
-<td class="org-left">ي</td>
-<td class="org-left">YEH</td>
 </tr>
 </tbody>
 
@@ -555,15 +552,16 @@ This greatly simplifies the code in emacs:
 
 
 <tr>
-<td class="org-left">°</td>
+<td class="org-left">oo</td>
 <td class="org-right">0652</td>
 <td class="org-left">ْ</td>
 <td class="org-left">SUKUN</td>
 </tr>
+</tbody>
 
-
+<tbody>
 <tr>
-<td class="org-left">a</td>
+<td class="org-left">.a</td>
 <td class="org-right">064e</td>
 <td class="org-left">َ</td>
 <td class="org-left">FATHA</td>
@@ -576,10 +574,19 @@ This greatly simplifies the code in emacs:
 <td class="org-left">ً</td>
 <td class="org-left">FATHATAN</td>
 </tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">u</td>
+<td class="org-right">064f</td>
+<td class="org-left">ُ</td>
+<td class="org-left">DAMMA</td>
+</tr>
 
 
 <tr>
-<td class="org-left">u</td>
+<td class="org-left">.u</td>
 <td class="org-right">064f</td>
 <td class="org-left">ُ</td>
 <td class="org-left">DAMMA</td>
@@ -592,10 +599,19 @@ This greatly simplifies the code in emacs:
 <td class="org-left">ٌ</td>
 <td class="org-left">DAMMATAN</td>
 </tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">i</td>
+<td class="org-right">0650</td>
+<td class="org-left">ِ</td>
+<td class="org-left">KASRA</td>
+</tr>
 
 
 <tr>
-<td class="org-left">i</td>
+<td class="org-left">.i</td>
 <td class="org-right">0650</td>
 <td class="org-left">ِ</td>
 <td class="org-left">KASRA</td>
@@ -608,8 +624,9 @@ This greatly simplifies the code in emacs:
 <td class="org-left">ٍ</td>
 <td class="org-left">KASRATAN</td>
 </tr>
+</tbody>
 
-
+<tbody>
 <tr>
 <td class="org-left">;</td>
 <td class="org-right">061b</td>
@@ -619,7 +636,7 @@ This greatly simplifies the code in emacs:
 
 
 <tr>
-<td class="org-left">J</td>
+<td class="org-left">\_</td>
 <td class="org-right">0640</td>
 <td class="org-left">ـ</td>
 <td class="org-left">TATWEEL</td>
@@ -661,14 +678,14 @@ This greatly simplifies the code in emacs:
 </table>
 
 
-<a id="org33ff341"></a>
+<a id="orgdb74880"></a>
 
 ### Emacs
 
     (keymap-to-emacs-quail "arabic-qwerty-everywhere" "arabic" (cdr tbl))
 
 
-<a id="org9f84b05"></a>
+<a id="orgaaa5879"></a>
 
 ### vim
 
@@ -677,16 +694,16 @@ This greatly simplifies the code in emacs:
       (write-file "dist/arabic-qwerty-everywhere.vim"))
 
 
-<a id="orgda4bad0"></a>
+<a id="orgdd2ec9a"></a>
 
 ## Hebrew
 
 
-<a id="org5062973"></a>
+<a id="orgbe56856"></a>
 
 ### Table
 
-<table id="org96ecf86" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="org72ff8b3" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
 <colgroup>
@@ -714,10 +731,11 @@ This greatly simplifies the code in emacs:
 <td class="org-left">א</td>
 <td class="org-left">alef</td>
 </tr>
+</tbody>
 
-
+<tbody>
 <tr>
-<td class="org-left">b</td>
+<td class="org-left">v</td>
 <td class="org-left">5d1</td>
 <td class="org-left">ב</td>
 <td class="org-left">bet</td>
@@ -725,13 +743,22 @@ This greatly simplifies the code in emacs:
 
 
 <tr>
-<td class="org-left">.b</td>
+<td class="org-left">.v</td>
 <td class="org-left">fb31</td>
 <td class="org-left">בּ</td>
 <td class="org-left">bet</td>
 </tr>
 
 
+<tr>
+<td class="org-left">b</td>
+<td class="org-left">fb31</td>
+<td class="org-left">בּ</td>
+<td class="org-left">bet</td>
+</tr>
+</tbody>
+
+<tbody>
 <tr>
 <td class="org-left">g</td>
 <td class="org-left">5d2</td>
@@ -741,6 +768,23 @@ This greatly simplifies the code in emacs:
 
 
 <tr>
+<td class="org-left">.g</td>
+<td class="org-left">fb32</td>
+<td class="org-left">גּ</td>
+<td class="org-left">gimel</td>
+</tr>
+
+
+<tr>
+<td class="org-left">j</td>
+<td class="org-left">fb32</td>
+<td class="org-left">גּ</td>
+<td class="org-left">gimel</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
 <td class="org-left">d</td>
 <td class="org-left">5d3</td>
 <td class="org-left">ד</td>
@@ -748,6 +792,15 @@ This greatly simplifies the code in emacs:
 </tr>
 
 
+<tr>
+<td class="org-left">.d</td>
+<td class="org-left">fb33</td>
+<td class="org-left">דּ</td>
+<td class="org-left">dalet with dagesh</td>
+</tr>
+</tbody>
+
+<tbody>
 <tr>
 <td class="org-left">h</td>
 <td class="org-left">5d4</td>
@@ -773,7 +826,7 @@ This greatly simplifies the code in emacs:
 
 
 <tr>
-<td class="org-left">ch</td>
+<td class="org-left">H</td>
 <td class="org-left">5d7</td>
 <td class="org-left">ח</td>
 <td class="org-left">het</td>
@@ -794,10 +847,11 @@ This greatly simplifies the code in emacs:
 <td class="org-left">י</td>
 <td class="org-left">yod</td>
 </tr>
+</tbody>
 
-
+<tbody>
 <tr>
-<td class="org-left">k</td>
+<td class="org-left">x</td>
 <td class="org-left">5db</td>
 <td class="org-left">כ</td>
 <td class="org-left">kaf</td>
@@ -805,7 +859,7 @@ This greatly simplifies the code in emacs:
 
 
 <tr>
-<td class="org-left">.k</td>
+<td class="org-left">k</td>
 <td class="org-left">fb3b</td>
 <td class="org-left">כּ</td>
 <td class="org-left">kaf</td>
@@ -813,7 +867,7 @@ This greatly simplifies the code in emacs:
 
 
 <tr>
-<td class="org-left">K</td>
+<td class="org-left">X</td>
 <td class="org-left">5da</td>
 <td class="org-left">ך</td>
 <td class="org-left">final kaf</td>
@@ -821,21 +875,23 @@ This greatly simplifies the code in emacs:
 
 
 <tr>
-<td class="org-left">.K</td>
+<td class="org-left">K</td>
 <td class="org-left">fb3a</td>
 <td class="org-left">ךּ</td>
 <td class="org-left">final kaf</td>
 </tr>
+</tbody>
 
-
+<tbody>
 <tr>
 <td class="org-left">l</td>
 <td class="org-left">5dc</td>
 <td class="org-left">ל</td>
 <td class="org-left">lamed</td>
 </tr>
+</tbody>
 
-
+<tbody>
 <tr>
 <td class="org-left">m</td>
 <td class="org-left">5de</td>
@@ -850,8 +906,9 @@ This greatly simplifies the code in emacs:
 <td class="org-left">ם</td>
 <td class="org-left">final mem</td>
 </tr>
+</tbody>
 
-
+<tbody>
 <tr>
 <td class="org-left">n</td>
 <td class="org-left">"5e0"</td>
@@ -866,8 +923,9 @@ This greatly simplifies the code in emacs:
 <td class="org-left">ן</td>
 <td class="org-left">final nun</td>
 </tr>
+</tbody>
 
-
+<tbody>
 <tr>
 <td class="org-left">c</td>
 <td class="org-left">"5e1"</td>
@@ -877,13 +935,23 @@ This greatly simplifies the code in emacs:
 
 
 <tr>
+<td class="org-left">.c</td>
+<td class="org-left">fb41</td>
+<td class="org-left">סּ</td>
+<td class="org-left">samekh + dagesh</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
 <td class="org-left">e</td>
 <td class="org-left">"5e2"</td>
 <td class="org-left">ע</td>
 <td class="org-left">ayin</td>
 </tr>
+</tbody>
 
-
+<tbody>
 <tr>
 <td class="org-left">f</td>
 <td class="org-left">"5e4"</td>
@@ -914,10 +982,11 @@ This greatly simplifies the code in emacs:
 <td class="org-left">ףּ</td>
 <td class="org-left">final fe + dagesh</td>
 </tr>
+</tbody>
 
-
+<tbody>
 <tr>
-<td class="org-left">ts</td>
+<td class="org-left">;t</td>
 <td class="org-left">"5e6"</td>
 <td class="org-left">צ</td>
 <td class="org-left">tsadi</td>
@@ -925,13 +994,14 @@ This greatly simplifies the code in emacs:
 
 
 <tr>
-<td class="org-left">TS</td>
+<td class="org-left">;T</td>
 <td class="org-left">"5e5"</td>
 <td class="org-left">ץ</td>
 <td class="org-left">final tsadi</td>
 </tr>
+</tbody>
 
-
+<tbody>
 <tr>
 <td class="org-left">q</td>
 <td class="org-left">"5e7"</td>
@@ -946,8 +1016,9 @@ This greatly simplifies the code in emacs:
 <td class="org-left">ר</td>
 <td class="org-left">resh</td>
 </tr>
+</tbody>
 
-
+<tbody>
 <tr>
 <td class="org-left">s</td>
 <td class="org-left">"5e9"</td>
@@ -957,7 +1028,7 @@ This greatly simplifies the code in emacs:
 
 
 <tr>
-<td class="org-left">^s</td>
+<td class="org-left">.s</td>
 <td class="org-left">fb2a</td>
 <td class="org-left">שׁ</td>
 <td class="org-left">shin</td>
@@ -965,13 +1036,14 @@ This greatly simplifies the code in emacs:
 
 
 <tr>
-<td class="org-left">.s</td>
+<td class="org-left">S</td>
 <td class="org-left">fb2b</td>
 <td class="org-left">שׂ</td>
 <td class="org-left">shin</td>
 </tr>
+</tbody>
 
-
+<tbody>
 <tr>
 <td class="org-left">t</td>
 <td class="org-left">5ea</td>
@@ -1118,7 +1190,7 @@ This greatly simplifies the code in emacs:
 
 
 <tr>
-<td class="org-left">SR</td>
+<td class="org-left">]SR</td>
 <td class="org-left">5c1</td>
 <td class="org-left">ׁ</td>
 <td class="org-left">shin-dot</td>
@@ -1126,7 +1198,7 @@ This greatly simplifies the code in emacs:
 
 
 <tr>
-<td class="org-left">SL</td>
+<td class="org-left">]SL</td>
 <td class="org-left">5c2</td>
 <td class="org-left">ׂ</td>
 <td class="org-left">sin-dot</td>
@@ -1167,14 +1239,14 @@ This greatly simplifies the code in emacs:
 </table>
 
 
-<a id="org74e5c39"></a>
+<a id="orgca18260"></a>
 
 ### Emacs
 
     (keymap-to-emacs-quail "hebrew-qwerty-everywhere" "hebrew" (cdr tbl))
 
 
-<a id="org1865aa5"></a>
+<a id="org35a430a"></a>
 
 ### vim
 
@@ -1183,7 +1255,94 @@ This greatly simplifies the code in emacs:
       (write-file "dist/hebrew-qwerty-everywhere.vim"))
 
 
-<a id="org492706d"></a>
+<a id="org18bde44"></a>
+
+## TODO Russian
+
+
+<a id="org0f7e58e"></a>
+
+# The code
+
+We are going to write the table to keymaps converters in emacs lisp,
+which is a dialect of lisp that runs the emacs editor.
+
+
+<a id="org4780f45"></a>
+
+## Vim
+
+First of all we write a function to convert a like such as
+
+> <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+> 
+> 
+> <colgroup>
+> <col  class="org-left" />
+> 
+> <col  class="org-right" />
+> 
+> <col  class="org-left" />
+> 
+> <col  class="org-left" />
+> </colgroup>
+> <tbody>
+> <tr>
+> <td class="org-left">Z</td>
+> <td class="org-right">0638</td>
+> <td class="org-left">ظ</td>
+> <td class="org-left">ZAH</td>
+> </tr>
+> </tbody>
+> </table>
+
+into the vim format for keymaps
+
+> Z  <char-0x0638>
+
+This means, we only need the key and the hexadecimal unicode.
+The function for this is \`keymap-line-to-vim\`
+
+    (defun keymap-line-to-vim (line)
+      "Example of a line:
+        | Z | 0638 | ظ | ZAH | ⇒ Z  <char-0x0638> \" ظ - ZAH
+      "
+      (let ((key (first line))
+            (code (second line))
+            (symbol (third line))
+            (name (fourth line)))
+        (format "%s <char-0x%s> \" %s - %s"
+                key code symbol name)))
+
+For the whole table, we will assume that we are in a temporary
+buffer and we can insert text into it, then we can write
+directly the buffer to a file or retrieve the string.
+This greatly simplifies the code in emacs:
+
+    (defun keymap-to-vim (name table)
+      (insert (format "let b:keymap_name = \"%s\"\n"
+                      name))
+      (insert "loadkeymap\n")
+      (insert (string-join (mapcar #'keymap-line-to-vim table) "\n")))
+
+
+<a id="org2e07adb"></a>
+
+## Emacs
+
+    (defun keymap-line-to-emacs-quail (line)
+      `(,(format "%s" (first line))
+        ,(string-to-number (format "%s" (second line)) 16)))
+    
+    (defun keymap-to-emacs-quail (name language table)
+      `(progn
+        (require 'quail)
+        (quail-define-package ,name ,language ,name)
+        (quail-define-rules
+          ,@(mapcar #'keymap-line-to-emacs-quail table))))
+
+
+<a id="orgde0bd7a"></a>
 
 # References
 
