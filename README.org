@@ -2,7 +2,7 @@
 #+author: Alejandro Gallo
 #+attr_headers: :mkdirp t
 * Introduction
-This projects aims to make writing Arabic, Hebrew and Russian
+This projects aims to make writing Arabic, Hebrew, Phoenician and Russian
 easier in Emacs and Vim by defining an intuitive keymap for ~QWERTY~
 users. If you are using another editor or want to contribute
 a language, you are welcome to contribute.
@@ -226,6 +226,54 @@ You can go back to your default by doing
 | VV  | 5f0     | װ      | double vav        |
 | VY  | 5f1     | ױ      | vav-yod           |
 | YY  | 5f2     | ײ      | double yod        |
+
+** Phoenician
+*** Table
+#+name: phoenician-table
+| Key | Unicode | Phoenician | Name        |
+|-----+---------+------------+-------------|
+| a   |  010900 | 𐤀          | alf         |
+|-----+---------+------------+-------------|
+| b   |  010901 | 𐤁          | bet         |
+| v   |  010901 | 𐤁          | bet         |
+|-----+---------+------------+-------------|
+| g   |  010902 | 𐤂          | gaml        |
+| d   |  010903 | 𐤃          | delt        |
+| h   |  010904 | 𐤄          | he          |
+| w   |  010905 | 𐤅          | wau         |
+| z   |  010906 | 𐤆          | zai         |
+| H   |  010907 | 𐤇          | het         |
+| T   |  010908 | 𐤈          | tet         |
+| y   |  010909 | 𐤉          | yod         |
+|-----+---------+------------+-------------|
+| x   |  01090a | 𐤊          | kaf         |
+| k   |  01090a | 𐤊          | kaf         |
+|-----+---------+------------+-------------|
+| l   |  01090b | 𐤋          | lamd        |
+| m   |  01090c | 𐤌          | mem         |
+| n   |  01090d | 𐤍          | nun         |
+| c   |  01090e | 𐤎          | semk        |
+| e   |  01090f | 𐤏          | ain         |
+|-----+---------+------------+-------------|
+| p   |  010910 | 𐤐          | pe          |
+| f   |  010910 | 𐤐          | pe          |
+|-----+---------+------------+-------------|
+| ;t  |  010911 | 𐤑          | sade        |
+| q   |  010912 | 𐤒          | qof         |
+| r   |  010913 | 𐤓          | rosh        |
+|-----+---------+------------+-------------|
+| s   |  010914 | 𐤔          | shin        |
+| .s  |  010914 | 𐤔          | shin        |
+| S   |  010914 | 𐤔          | shin        |
+|-----+---------+------------+-------------|
+| t   |  010915 | 𐤕          | tau         |
+| 1   |  010916 | 𐤖          | one         |
+| 10  |  010917 | 𐤗          | ten         |
+| 20  |  010918 | 𐤘          | twenty      |
+| 100 |  010919 | 𐤙          | one hundred |
+| 2   |  01091a | 𐤚          | two         |
+| 3   |  01091b | 𐤛          | three       |
+| :   |  01091f | 𐤟          | separator   |
 
 ** TODO Russian
 * The code
@@ -477,6 +525,64 @@ package.
 (with-temp-buffer
   (keymap-to-vim "hebrew-qwerty-everywhere" (cdr tbl))
   (write-file "dist/hebrew-qwerty-everywhere.vim"))
+#+end_src
+** Phoenician 
+*** Emacs                                                          :noexport:
+#+headers: :results_switches ":tangle dist/phoenician-qwerty-everywhere.el"
+#+begin_src emacs-lisp :var tbl=phoenician-table :results code
+(keymap-to-emacs-quail "phoenician-qwerty-everywhere" "phoenician" (cdr tbl))
+#+end_src
+
+#+RESULTS:
+#+begin_src emacs-lisp :tangle dist/phoenician-qwerty-everywhere.el
+(progn
+  (require 'quail)
+  (quail-define-package "phoenician-qwerty-everywhere" "phoenician" "phoenician-qwerty-everywhere")
+  (quail-define-rules
+   ("a" 67840)
+   ("b" 67841)
+   ("v" 67841)
+   ("g" 67842)
+   ("d" 67843)
+   ("h" 67844)
+   ("w" 67845)
+   ("z" 67846)
+   ("H" 67847)
+   ("T" 67848)
+   ("y" 67849)
+   ("x" 67850)
+   ("k" 67850)
+   ("l" 67851)
+   ("m" 67852)
+   ("n" 67853)
+   ("c" 67854)
+   ("e" 67855)
+   ("p" 67856)
+   ("f" 67856)
+   (";t" 67857)
+   ("q" 67858)
+   ("r" 67859)
+   ("s" 67860)
+   (".s" 67860)
+   ("S" 67860)
+   ("t" 67861)
+   ("1" 67862)
+   ("10" 67863)
+   ("20" 67864)
+   ("100" 67865)
+   ("2" 67866)
+   ("3" 67867)
+   (":" 67871)))
+#+end_src
+
+#+RESULTS:
+ 
+*** vim                                                            :noexport:
+#+headers: :results silent
+#+begin_src emacs-lisp :var tbl=phoenician-table
+(with-temp-buffer
+  (keymap-to-vim "phoenician-qwerty-everywhere" (cdr tbl))
+  (write-file "dist/phoenician-qwerty-everywhere.vim"))
 #+end_src
 * References
 bibliographystyle:unsrt

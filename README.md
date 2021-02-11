@@ -1,30 +1,33 @@
 
 # Table of Contents
 
-1.  [Introduction](#org41c0757)
-    1.  [Installation](#org3feedf2)
-        1.  [Emacs](#org2e00fa8)
-        2.  [Vim](#orgb918265)
-2.  [Languages](#org19bc9ee)
-    1.  [Arabic](#orgffd267e)
-        1.  [Table](#orgcf2184e)
-    2.  [Hebrew](#org567fc75)
-        1.  [Table](#orge3923b7)
-    3.  [Russian](#org279a1aa)
-3.  [The code](#orgb7df68f)
-    1.  [Vim](#orgbe9ca19)
-    2.  [Emacs](#org04d76d9)
-    3.  [Arabic](#orgb70f3e0)
-    4.  [Hebrew](#org3c88d48)
-4.  [References](#org3f87b66)
+1.  [Introduction](#org35146c2)
+    1.  [Installation](#org6976f3a)
+        1.  [Emacs](#orgf585782)
+        2.  [Vim](#org1b69dab)
+2.  [Languages](#org737984e)
+    1.  [Arabic](#org18948f2)
+        1.  [Table](#org995f27b)
+    2.  [Hebrew](#orgadd0b18)
+        1.  [Table](#org0caa399)
+    3.  [Phoenician](#orgcca8903)
+        1.  [Table](#org97963ba)
+    4.  [Russian](#org89ffd0c)
+3.  [The code](#orgb901360)
+    1.  [Vim](#orgd999d1a)
+    2.  [Emacs](#org164a762)
+    3.  [Arabic](#orgc78f63d)
+    4.  [Hebrew](#orga911c89)
+    5.  [Phoenician](#orgc47d436)
+4.  [References](#org18c875a)
 
 
 
-<a id="org41c0757"></a>
+<a id="org35146c2"></a>
 
 # Introduction
 
-This projects aims to make writing Arabic, Hebrew and Russian
+This projects aims to make writing Arabic, Hebrew, Phoenician and Russian
 easier in Emacs and Vim by defining an intuitive keymap for `QWERTY`
 users. If you are using another editor or want to contribute
 a language, you are welcome to contribute.
@@ -37,7 +40,7 @@ which produces the code in a self-contained way in the same
 document <sup id="39f041f6b1d2d698620dbd1d6c83c888"><a href="#LiteratePrograKnuth1984" title="Knuth, Literate Programming, {The Computer Journal}, v(), 97--111 (1984).">LiteratePrograKnuth1984</a></sup><sup>,</sup><sup id="a2fb013cbe5b6ecb92dd8d45083d9105"><a href="#Literate.prograRamsey1994" title="Ramsey, Literate programming simplified, {IEEE Software}, v(), 97--105 (1994).">Literate.prograRamsey1994</a></sup>.
 
 
-<a id="org3feedf2"></a>
+<a id="org6976f3a"></a>
 
 ## Installation
 
@@ -49,7 +52,7 @@ Otherwise you can follow the following instructions to understand
 the process in each editor.
 
 
-<a id="org2e00fa8"></a>
+<a id="orgf585782"></a>
 
 ### Emacs
 
@@ -64,7 +67,7 @@ and now you can set this keymap by `M-x set-input-method`
 and choosing the `arabic-qwerty-everywhere`.
 
 
-<a id="orgb918265"></a>
+<a id="org1b69dab"></a>
 
 ### Vim
 
@@ -81,21 +84,21 @@ You can go back to your default by doing
     :set norightleft
 
 
-<a id="org19bc9ee"></a>
+<a id="org737984e"></a>
 
 # Languages
 
 
-<a id="orgffd267e"></a>
+<a id="org18948f2"></a>
 
 ## Arabic
 
 
-<a id="orgcf2184e"></a>
+<a id="org995f27b"></a>
 
 ### Table
 
-<table id="org23e80fd" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="org53b734c" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
 <colgroup>
@@ -684,16 +687,16 @@ You can go back to your default by doing
 </table>
 
 
-<a id="org567fc75"></a>
+<a id="orgadd0b18"></a>
 
 ## Hebrew
 
 
-<a id="orge3923b7"></a>
+<a id="org0caa399"></a>
 
 ### Table
 
-<table id="org5d6ce64" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="org652108c" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
 <colgroup>
@@ -1229,12 +1232,325 @@ You can go back to your default by doing
 </table>
 
 
-<a id="org279a1aa"></a>
+<a id="orgcca8903"></a>
+
+## Phoenician
+
+
+<a id="org97963ba"></a>
+
+### Table
+
+<table id="org4eb1503" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key</th>
+<th scope="col" class="org-right">Unicode</th>
+<th scope="col" class="org-left">Phoenician</th>
+<th scope="col" class="org-left">Name</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td class="org-left">a</td>
+<td class="org-right">010900</td>
+<td class="org-left">𐤀</td>
+<td class="org-left">alf</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">b</td>
+<td class="org-right">010901</td>
+<td class="org-left">𐤁</td>
+<td class="org-left">bet</td>
+</tr>
+
+
+<tr>
+<td class="org-left">v</td>
+<td class="org-right">010901</td>
+<td class="org-left">𐤁</td>
+<td class="org-left">bet</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">g</td>
+<td class="org-right">010902</td>
+<td class="org-left">𐤂</td>
+<td class="org-left">gaml</td>
+</tr>
+
+
+<tr>
+<td class="org-left">d</td>
+<td class="org-right">010903</td>
+<td class="org-left">𐤃</td>
+<td class="org-left">delt</td>
+</tr>
+
+
+<tr>
+<td class="org-left">h</td>
+<td class="org-right">010904</td>
+<td class="org-left">𐤄</td>
+<td class="org-left">he</td>
+</tr>
+
+
+<tr>
+<td class="org-left">w</td>
+<td class="org-right">010905</td>
+<td class="org-left">𐤅</td>
+<td class="org-left">wau</td>
+</tr>
+
+
+<tr>
+<td class="org-left">z</td>
+<td class="org-right">010906</td>
+<td class="org-left">𐤆</td>
+<td class="org-left">zai</td>
+</tr>
+
+
+<tr>
+<td class="org-left">H</td>
+<td class="org-right">010907</td>
+<td class="org-left">𐤇</td>
+<td class="org-left">het</td>
+</tr>
+
+
+<tr>
+<td class="org-left">T</td>
+<td class="org-right">010908</td>
+<td class="org-left">𐤈</td>
+<td class="org-left">tet</td>
+</tr>
+
+
+<tr>
+<td class="org-left">y</td>
+<td class="org-right">010909</td>
+<td class="org-left">𐤉</td>
+<td class="org-left">yod</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">x</td>
+<td class="org-right">01090a</td>
+<td class="org-left">𐤊</td>
+<td class="org-left">kaf</td>
+</tr>
+
+
+<tr>
+<td class="org-left">k</td>
+<td class="org-right">01090a</td>
+<td class="org-left">𐤊</td>
+<td class="org-left">kaf</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">l</td>
+<td class="org-right">01090b</td>
+<td class="org-left">𐤋</td>
+<td class="org-left">lamd</td>
+</tr>
+
+
+<tr>
+<td class="org-left">m</td>
+<td class="org-right">01090c</td>
+<td class="org-left">𐤌</td>
+<td class="org-left">mem</td>
+</tr>
+
+
+<tr>
+<td class="org-left">n</td>
+<td class="org-right">01090d</td>
+<td class="org-left">𐤍</td>
+<td class="org-left">nun</td>
+</tr>
+
+
+<tr>
+<td class="org-left">c</td>
+<td class="org-right">01090e</td>
+<td class="org-left">𐤎</td>
+<td class="org-left">semk</td>
+</tr>
+
+
+<tr>
+<td class="org-left">e</td>
+<td class="org-right">01090f</td>
+<td class="org-left">𐤏</td>
+<td class="org-left">ain</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">p</td>
+<td class="org-right">010910</td>
+<td class="org-left">𐤐</td>
+<td class="org-left">pe</td>
+</tr>
+
+
+<tr>
+<td class="org-left">f</td>
+<td class="org-right">010910</td>
+<td class="org-left">𐤐</td>
+<td class="org-left">pe</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">;t</td>
+<td class="org-right">010911</td>
+<td class="org-left">𐤑</td>
+<td class="org-left">sade</td>
+</tr>
+
+
+<tr>
+<td class="org-left">q</td>
+<td class="org-right">010912</td>
+<td class="org-left">𐤒</td>
+<td class="org-left">qof</td>
+</tr>
+
+
+<tr>
+<td class="org-left">r</td>
+<td class="org-right">010913</td>
+<td class="org-left">𐤓</td>
+<td class="org-left">rosh</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">s</td>
+<td class="org-right">010914</td>
+<td class="org-left">𐤔</td>
+<td class="org-left">shin</td>
+</tr>
+
+
+<tr>
+<td class="org-left">.s</td>
+<td class="org-right">010914</td>
+<td class="org-left">𐤔</td>
+<td class="org-left">shin</td>
+</tr>
+
+
+<tr>
+<td class="org-left">S</td>
+<td class="org-right">010914</td>
+<td class="org-left">𐤔</td>
+<td class="org-left">shin</td>
+</tr>
+</tbody>
+
+<tbody>
+<tr>
+<td class="org-left">t</td>
+<td class="org-right">010915</td>
+<td class="org-left">𐤕</td>
+<td class="org-left">tau</td>
+</tr>
+
+
+<tr>
+<td class="org-left">1</td>
+<td class="org-right">010916</td>
+<td class="org-left">𐤖</td>
+<td class="org-left">one</td>
+</tr>
+
+
+<tr>
+<td class="org-left">10</td>
+<td class="org-right">010917</td>
+<td class="org-left">𐤗</td>
+<td class="org-left">ten</td>
+</tr>
+
+
+<tr>
+<td class="org-left">20</td>
+<td class="org-right">010918</td>
+<td class="org-left">𐤘</td>
+<td class="org-left">twenty</td>
+</tr>
+
+
+<tr>
+<td class="org-left">100</td>
+<td class="org-right">010919</td>
+<td class="org-left">𐤙</td>
+<td class="org-left">one hundred</td>
+</tr>
+
+
+<tr>
+<td class="org-left">2</td>
+<td class="org-right">01091a</td>
+<td class="org-left">𐤚</td>
+<td class="org-left">two</td>
+</tr>
+
+
+<tr>
+<td class="org-left">3</td>
+<td class="org-right">01091b</td>
+<td class="org-left">𐤛</td>
+<td class="org-left">three</td>
+</tr>
+
+
+<tr>
+<td class="org-left">:</td>
+<td class="org-right">01091f</td>
+<td class="org-left">𐤟</td>
+<td class="org-left">separator</td>
+</tr>
+</tbody>
+</table>
+
+
+<a id="org89ffd0c"></a>
 
 ## TODO Russian
 
 
-<a id="orgb7df68f"></a>
+<a id="orgb901360"></a>
 
 # The code
 
@@ -1242,7 +1558,7 @@ We are going to write the table to keymaps converters in emacs lisp,
 which is a dialect of lisp that runs the emacs editor.
 
 
-<a id="orgbe9ca19"></a>
+<a id="orgd999d1a"></a>
 
 ## Vim
 
@@ -1300,7 +1616,7 @@ This greatly simplifies the code in emacs:
       (insert (string-join (mapcar #'keymap-line-to-vim table) "\n")))
 
 
-<a id="org04d76d9"></a>
+<a id="org164a762"></a>
 
 ## Emacs
 
@@ -1322,17 +1638,22 @@ package.
           ,@(mapcar #'keymap-line-to-emacs-quail table))))
 
 
-<a id="orgb70f3e0"></a>
+<a id="orgc78f63d"></a>
 
 ## Arabic
 
 
-<a id="org3c88d48"></a>
+<a id="orga911c89"></a>
 
 ## Hebrew
 
 
-<a id="org3f87b66"></a>
+<a id="orgc47d436"></a>
+
+## Phoenician
+
+
+<a id="org18c875a"></a>
 
 # References
 
