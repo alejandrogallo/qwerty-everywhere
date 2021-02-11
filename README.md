@@ -1,29 +1,26 @@
 
 # Table of Contents
 
-1.  [Introduction](#org35146c2)
-    1.  [Installation](#org6976f3a)
-        1.  [Emacs](#orgf585782)
-        2.  [Vim](#org1b69dab)
-2.  [Languages](#org737984e)
-    1.  [Arabic](#org18948f2)
-        1.  [Table](#org995f27b)
-    2.  [Hebrew](#orgadd0b18)
-        1.  [Table](#org0caa399)
-    3.  [Phoenician](#orgcca8903)
-        1.  [Table](#org97963ba)
-    4.  [Russian](#org89ffd0c)
-3.  [The code](#orgb901360)
-    1.  [Vim](#orgd999d1a)
-    2.  [Emacs](#org164a762)
-    3.  [Arabic](#orgc78f63d)
-    4.  [Hebrew](#orga911c89)
-    5.  [Phoenician](#orgc47d436)
-4.  [References](#org18c875a)
+1.  [Introduction](#orgd669c37)
+    1.  [Installation](#org8b0435b)
+        1.  [Emacs](#orgb5efa02)
+        2.  [Vim](#org5e313d1)
+2.  [Languages](#orgda8c830)
+    1.  [Arabic](#orgcaa994a)
+        1.  [Table](#org80428e3)
+    2.  [Hebrew](#orgc7f02cf)
+        1.  [Table](#orgf58fb79)
+    3.  [Phoenician](#orged7be8a)
+        1.  [Table](#org6e5145f)
+    4.  [Russian](#orga3c081b)
+3.  [The code](#orgda5234d)
+    1.  [Vim](#org112f1ab)
+    2.  [Emacs](#org6dc7459)
+4.  [References](#orgba77f95)
 
 
 
-<a id="org35146c2"></a>
+<a id="orgd669c37"></a>
 
 # Introduction
 
@@ -40,7 +37,7 @@ which produces the code in a self-contained way in the same
 document <sup id="39f041f6b1d2d698620dbd1d6c83c888"><a href="#LiteratePrograKnuth1984" title="Knuth, Literate Programming, {The Computer Journal}, v(), 97--111 (1984).">LiteratePrograKnuth1984</a></sup><sup>,</sup><sup id="a2fb013cbe5b6ecb92dd8d45083d9105"><a href="#Literate.prograRamsey1994" title="Ramsey, Literate programming simplified, {IEEE Software}, v(), 97--105 (1994).">Literate.prograRamsey1994</a></sup>.
 
 
-<a id="org6976f3a"></a>
+<a id="org8b0435b"></a>
 
 ## Installation
 
@@ -52,7 +49,7 @@ Otherwise you can follow the following instructions to understand
 the process in each editor.
 
 
-<a id="orgf585782"></a>
+<a id="orgb5efa02"></a>
 
 ### Emacs
 
@@ -67,7 +64,7 @@ and now you can set this keymap by `M-x set-input-method`
 and choosing the `arabic-qwerty-everywhere`.
 
 
-<a id="org1b69dab"></a>
+<a id="org5e313d1"></a>
 
 ### Vim
 
@@ -84,21 +81,21 @@ You can go back to your default by doing
     :set norightleft
 
 
-<a id="org737984e"></a>
+<a id="orgda8c830"></a>
 
 # Languages
 
 
-<a id="org18948f2"></a>
+<a id="orgcaa994a"></a>
 
 ## Arabic
 
 
-<a id="org995f27b"></a>
+<a id="org80428e3"></a>
 
 ### Table
 
-<table id="org53b734c" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="orgbb59a6e" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
 <colgroup>
@@ -687,16 +684,16 @@ You can go back to your default by doing
 </table>
 
 
-<a id="orgadd0b18"></a>
+<a id="orgc7f02cf"></a>
 
 ## Hebrew
 
 
-<a id="org0caa399"></a>
+<a id="orgf58fb79"></a>
 
 ### Table
 
-<table id="org652108c" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="org6f07623" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
 <colgroup>
@@ -1232,16 +1229,16 @@ You can go back to your default by doing
 </table>
 
 
-<a id="orgcca8903"></a>
+<a id="orged7be8a"></a>
 
 ## Phoenician
 
 
-<a id="org97963ba"></a>
+<a id="org6e5145f"></a>
 
 ### Table
 
-<table id="org4eb1503" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="org5ad81a8" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
 <colgroup>
@@ -1545,12 +1542,12 @@ You can go back to your default by doing
 </table>
 
 
-<a id="org89ffd0c"></a>
+<a id="orga3c081b"></a>
 
 ## TODO Russian
 
 
-<a id="orgb901360"></a>
+<a id="orgda5234d"></a>
 
 # The code
 
@@ -1558,7 +1555,7 @@ We are going to write the table to keymaps converters in emacs lisp,
 which is a dialect of lisp that runs the emacs editor.
 
 
-<a id="orgd999d1a"></a>
+<a id="org112f1ab"></a>
 
 ## Vim
 
@@ -1616,7 +1613,7 @@ This greatly simplifies the code in emacs:
       (insert (string-join (mapcar #'keymap-line-to-vim table) "\n")))
 
 
-<a id="org164a762"></a>
+<a id="org6dc7459"></a>
 
 ## Emacs
 
@@ -1638,22 +1635,7 @@ package.
           ,@(mapcar #'keymap-line-to-emacs-quail table))))
 
 
-<a id="orgc78f63d"></a>
-
-## Arabic
-
-
-<a id="orga911c89"></a>
-
-## Hebrew
-
-
-<a id="orgc47d436"></a>
-
-## Phoenician
-
-
-<a id="org18c875a"></a>
+<a id="orgba77f95"></a>
 
 # References
 

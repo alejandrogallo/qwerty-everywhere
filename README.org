@@ -346,7 +346,7 @@ package.
       ,@(mapcar #'keymap-line-to-emacs-quail table))))
 
 #+end_src
-** Arabic
+** Arabic                                                          :noexport:
 *** Emacs                                                          :noexport:
 
 #+headers: :results_switches ":tangle dist/arabic-qwerty-everywhere.el"
@@ -440,7 +440,7 @@ package.
   (write-file "dist/arabic-qwerty-everywhere.vim"))
 #+end_src
 
-** Hebrew
+** Hebrew                                                          :noexport:
 *** Emacs                                                          :noexport:
 #+headers: :results_switches ":tangle dist/hebrew-qwerty-everywhere.el"
 #+begin_src emacs-lisp :var tbl=hebrew-table :results code
@@ -526,7 +526,7 @@ package.
   (keymap-to-vim "hebrew-qwerty-everywhere" (cdr tbl))
   (write-file "dist/hebrew-qwerty-everywhere.vim"))
 #+end_src
-** Phoenician 
+** Phoenician                                                      :noexport:
 *** Emacs                                                          :noexport:
 #+headers: :results_switches ":tangle dist/phoenician-qwerty-everywhere.el"
 #+begin_src emacs-lisp :var tbl=phoenician-table :results code
