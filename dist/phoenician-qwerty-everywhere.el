@@ -1,6 +1,6 @@
 (progn
   (require 'quail)
-  (quail-define-package "phoenician-qwerty-everywhere" "phoenician" "phoenician-qwerty-everywhere")
+  (quail-define-package "phoenician-qwerty-everywhere" "phoenician" "phoenician")
   (quail-define-rules
    ("a" 67840)
    ("b" 67841)
@@ -35,4 +35,5 @@
    ("100" 67865)
    ("2" 67866)
    ("3" 67867)
-   (":" 67871)))
+   (":" 67871))
+  (provide 'phoenician-qwerty-everywhere))

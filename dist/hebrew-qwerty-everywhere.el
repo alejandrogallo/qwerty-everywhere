@@ -1,6 +1,6 @@
 (progn
   (require 'quail)
-  (quail-define-package "hebrew-qwerty-everywhere" "hebrew" "hebrew-qwerty-everywhere")
+  (quail-define-package "hebrew-qwerty-everywhere" "hebrew" "עברית")
   (quail-define-rules
    ("a" 1488)
    ("v" 1489)
@@ -63,4 +63,5 @@
    ("]P" 1475)
    ("VV" 1520)
    ("VY" 1521)
-   ("YY" 1522)))
+   ("YY" 1522))
+  (provide 'hebrew-qwerty-everywhere))

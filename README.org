@@ -338,12 +338,13 @@ package.
   `(,(format "%s" (first line))
     ,(string-to-number (format "%s" (second line)) 16)))
 
-(defun keymap-to-emacs-quail (name language table)
+(defun keymap-to-emacs-quail (name language title table)
   `(progn
-    (require 'quail)
-    (quail-define-package ,name ,language ,name)
-    (quail-define-rules
-      ,@(mapcar #'keymap-line-to-emacs-quail table))))
+     (require 'quail)
+     (quail-define-package ,(symbol-name name) ,language ,title)
+     (quail-define-rules
+      ,@(mapcar #'keymap-line-to-emacs-quail table))
+     (provide ',name)))
 
 #+end_src
 ** Arabic                                                          :noexport:
@@ -351,14 +352,14 @@ package.
 
 #+headers: :results_switches ":tangle dist/arabic-qwerty-everywhere.el"
 #+begin_src emacs-lisp :var tbl=arabic-table :results code
-(keymap-to-emacs-quail "arabic-qwerty-everywhere" "arabic" (cdr tbl))
+(keymap-to-emacs-quail 'arabic-qwerty-everywhere "arabic" "عربية" (cdr tbl))
 #+end_src
 
 #+RESULTS:
 #+begin_src emacs-lisp :tangle dist/arabic-qwerty-everywhere.el
 (progn
   (require 'quail)
-  (quail-define-package "arabic-qwerty-everywhere" "arabic" "arabic-qwerty-everywhere")
+  (quail-define-package "arabic-qwerty-everywhere" "arabic" "عربية")
   (quail-define-rules
    ("a" 1575)
    ("A" 1609)
@@ -427,7 +428,8 @@ package.
    ("," 1548)
    ("?" 1567)
    ("_A" 65010)
-   ("_S" 65018)))
+   ("_S" 65018))
+  (provide 'arabic-qwerty-everywhere))
 #+end_src
 
 #+RESULTS:
@@ -444,14 +446,14 @@ package.
 *** Emacs                                                          :noexport:
 #+headers: :results_switches ":tangle dist/hebrew-qwerty-everywhere.el"
 #+begin_src emacs-lisp :var tbl=hebrew-table :results code
-(keymap-to-emacs-quail "hebrew-qwerty-everywhere" "hebrew" (cdr tbl))
+(keymap-to-emacs-quail 'hebrew-qwerty-everywhere "hebrew" "עברית" (cdr tbl))
 #+end_src
 
 #+RESULTS:
 #+begin_src emacs-lisp :tangle dist/hebrew-qwerty-everywhere.el
 (progn
   (require 'quail)
-  (quail-define-package "hebrew-qwerty-everywhere" "hebrew" "hebrew-qwerty-everywhere")
+  (quail-define-package "hebrew-qwerty-everywhere" "hebrew" "עברית")
   (quail-define-rules
    ("a" 1488)
    ("v" 1489)
@@ -514,7 +516,8 @@ package.
    ("]P" 1475)
    ("VV" 1520)
    ("VY" 1521)
-   ("YY" 1522)))
+   ("YY" 1522))
+  (provide 'hebrew-qwerty-everywhere))
 #+end_src
 
 #+RESULTS:
@@ -530,14 +533,14 @@ package.
 *** Emacs                                                          :noexport:
 #+headers: :results_switches ":tangle dist/phoenician-qwerty-everywhere.el"
 #+begin_src emacs-lisp :var tbl=phoenician-table :results code
-(keymap-to-emacs-quail "phoenician-qwerty-everywhere" "phoenician" (cdr tbl))
+(keymap-to-emacs-quail 'phoenician-qwerty-everywhere "phoenician" "phoenician" (cdr tbl))
 #+end_src
 
 #+RESULTS:
 #+begin_src emacs-lisp :tangle dist/phoenician-qwerty-everywhere.el
 (progn
   (require 'quail)
-  (quail-define-package "phoenician-qwerty-everywhere" "phoenician" "phoenician-qwerty-everywhere")
+  (quail-define-package "phoenician-qwerty-everywhere" "phoenician" "phoenician")
   (quail-define-rules
    ("a" 67840)
    ("b" 67841)
@@ -572,7 +575,8 @@ package.
    ("100" 67865)
    ("2" 67866)
    ("3" 67867)
-   (":" 67871)))
+   (":" 67871))
+  (provide 'phoenician-qwerty-everywhere))
 #+end_src
 
 #+RESULTS:

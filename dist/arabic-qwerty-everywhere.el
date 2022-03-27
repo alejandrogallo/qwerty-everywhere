@@ -1,6 +1,6 @@
 (progn
   (require 'quail)
-  (quail-define-package "arabic-qwerty-everywhere" "arabic" "arabic-qwerty-everywhere")
+  (quail-define-package "arabic-qwerty-everywhere" "arabic" "عربية")
   (quail-define-rules
    ("a" 1575)
    ("A" 1609)
@@ -69,4 +69,5 @@
    ("," 1548)
    ("?" 1567)
    ("_A" 65010)
-   ("_S" 65018)))
+   ("_S" 65018))
+  (provide 'arabic-qwerty-everywhere))
